@@ -2,7 +2,6 @@ package Pantallas;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Principal extends JFrame {
@@ -17,15 +16,17 @@ public class Principal extends JFrame {
     private final ImageIcon imgEs;
 
     public Principal() {
-        super.setSize(420, 450);
+        super.setSize(420, 480);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setTitle("BS Ferrocarril");
+        //super.setUndecorated(true);
         super.setLocationRelativeTo(null);
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
 
         pnlArriba = new JPanel();
-        txtTitulo = new JLabel("Biblioteca Infantil Ferrocarril");
+        txtTitulo = new JLabel("BS Ferrocarril");
+        txtTitulo.setFont(new Font("Times New Roman", Font.BOLD, 20));
         pnlArriba.add(txtTitulo);
         pnlArriba.setBackground(Color.WHITE);
 
@@ -38,6 +39,8 @@ public class Principal extends JFrame {
         
         pnlAbajo = new JPanel();
         btnIngresar = new JButton("Ingresar");
+//        btnIngresar.setBorder(null);
+        btnIngresar.setBackground(Color.WHITE);
         pnlAbajo.setBackground(Color.WHITE);
         pnlAbajo.add(btnIngresar);
 

@@ -2,6 +2,9 @@ package Pantallas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -15,45 +18,107 @@ public class Seleccion extends JFrame {
     private final ImageIcon multimediaEs;
     private final ImageIcon juegos;
     private final ImageIcon juegosEs;
-    private final JLabel lblLibros;
-    private final JLabel lblmultimedia;
-    private final JLabel lblJuegos;
     private final JPanel pnlSeccion;
-    private final JLabel lblBebes;
+    private final JPanel pnlTitulo;
+    private final JLabel lblTitulo;
+    private final JLabel lblTexto;
+    private final JButton btnLibros;
+    private final JButton btnMultimedia;
+    private final JButton btnJuegos;
+    private final JButton btnBebes;
+    private final JPanel pnlAbajo;
 
     public Seleccion() {
-        super.setSize(650, 450);
+        super.setSize(850, 350);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setTitle("BS Ferrocarril");
         super.setLocationRelativeTo(null);
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
 
+        //Imagenes
         libros = new ImageIcon(getClass().getResource("/Imagenes/libros.png"));
-        librosEs = new ImageIcon(libros.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
+        librosEs = new ImageIcon(libros.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 
         bebes = new ImageIcon(getClass().getResource("/Imagenes/bebes.png"));
-        bebesEs = new ImageIcon(bebes.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
+        bebesEs = new ImageIcon(bebes.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 
         multimedia = new ImageIcon(getClass().getResource("/Imagenes/multimedia.png"));
-        multimediaEs = new ImageIcon(multimedia.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
+        multimediaEs = new ImageIcon(multimedia.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 
         juegos = new ImageIcon(getClass().getResource("/Imagenes/juegos.png"));
-        juegosEs = new ImageIcon(juegos.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
+        juegosEs = new ImageIcon(juegos.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 
-        lblLibros = new JLabel(librosEs);
-        lblmultimedia = new JLabel(multimediaEs);
-        lblJuegos = new JLabel(juegosEs);
-        lblBebes = new JLabel(bebesEs);
-
+        //Botones
+        btnLibros = new JButton();
+        btnLibros.setIcon(librosEs);
+        btnLibros.setBorder(null);
+        btnLibros.setBackground(Color.WHITE);
+        
+        btnMultimedia = new JButton();
+        btnMultimedia.setIcon(multimediaEs);
+        btnMultimedia.setBorder(null);
+        btnMultimedia.setBackground(Color.WHITE);
+        
+        btnJuegos = new JButton();
+        btnJuegos.setIcon(juegosEs);
+        btnJuegos.setBorder(null);
+        btnJuegos.setBackground(Color.WHITE);
+        
+        btnBebes = new JButton();
+        btnBebes.setIcon(bebesEs);
+        btnBebes.setBorder(null);
+        btnBebes.setBackground(Color.WHITE);
+        
         pnlSeccion = new JPanel();
         pnlSeccion.setBackground(Color.WHITE);
 
-        pnlSeccion.add(lblLibros);
-        pnlSeccion.add(lblmultimedia);
-        pnlSeccion.add(lblJuegos);
-        pnlSeccion.add(lblBebes);
+        pnlSeccion.add(btnLibros);
+        pnlSeccion.add(btnMultimedia);
+        pnlSeccion.add(btnJuegos);
+        pnlSeccion.add(btnBebes);
+        
+        //Acciones
+        btnJuegos.addActionListener((ActionEvent e) -> {
+            
+        });
+        
+        btnBebes.addActionListener((ActionEvent e) -> {
+            
+        });
+        
+        btnLibros.addActionListener((ActionEvent e) -> {
+           
+        });
+        
+        btnMultimedia.addActionListener((ActionEvent e) -> {
+            
+        });
+        
+        //Panel arriba
+        pnlTitulo = new JPanel();
+        pnlTitulo.setLayout(new BorderLayout());
+        pnlTitulo.setBackground(Color.black);
+        lblTitulo = new JLabel("                                         BIENVENIDO");
+        lblTexto = new JLabel("                                                                                     Elija la opcion deseada:");
+        lblTexto.setForeground(Color.WHITE);
+        lblTitulo.setForeground(Color.WHITE);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 27));
+        lblTexto.setFont(new Font("Arial", Font.PLAIN, 14));
+        pnlTitulo.add(lblTitulo, BorderLayout.PAGE_START);
+        pnlTitulo.add(new JLabel(), BorderLayout.CENTER);
+        pnlTitulo.add(lblTexto, BorderLayout.PAGE_END);
+        
 
-        super.add(pnlSeccion);
+        //Panel abajo
+        pnlAbajo = new JPanel();
+        pnlAbajo.setBackground(Color.black);
+        pnlAbajo.add(new JLabel("BS - Ferrocarril. Museo Infantil de Oaxaca"));
+        
+        super.add(pnlSeccion, BorderLayout.CENTER);
+        super.add(pnlTitulo, BorderLayout.PAGE_START);
+        super.add(pnlAbajo, BorderLayout.PAGE_END);
+        
+        super.setVisible(true);
     }
 }
