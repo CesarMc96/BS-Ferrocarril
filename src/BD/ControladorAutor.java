@@ -1,7 +1,6 @@
 package BD;
 
 import Modelo.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ControladorAutor {
@@ -12,7 +11,7 @@ public class ControladorAutor {
         db = cargarAutores;
     }
 
-    public void agregar(Autor p) throws IOException {
+    public void agregar(Autor p) {
         db.add(p);
     }
 

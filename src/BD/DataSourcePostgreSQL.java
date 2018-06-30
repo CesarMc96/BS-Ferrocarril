@@ -91,21 +91,21 @@ public class DataSourcePostgreSQL implements DataSource {
             rs = st.executeQuery(consulta);
             System.out.println(rs);
 
-            if(tipo == "Autor") {
+            if ("Autor".equals(tipo)) {
                 while (rs.next()) {
                     String nombre = rs.getString(2);
                     //System.out.println(nombre);
                     arreglo.add(new Autor(rs.getInt(1), rs.getString(2), rs.getString(3)));
                 }
-            } 
-            
-            if(tipo == "Editorial") {
-                while (rs.next()){
+            }
+
+            if ("Editorial".equals(tipo)) {
+                while (rs.next()) {
                     arreglo.add(new Editorial(rs.getInt(1), rs.getString(2)));
                 }
             }
-            
-            if(tipo == "Usuario") {
+
+            if ("Usuario".equals(tipo)) {
                 while (rs.next()) {
                     arreglo.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDate(9)));
                 }
