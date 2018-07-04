@@ -30,6 +30,8 @@ public class Autores extends JFrame {
     private final JButton btnAceptar;
     private final JPanel pnlboton;
     private final JButton btnEliminar;
+    
+    private AutorDialogNuevo autorDialog;
 
     public Autores() {
         super.setSize(800, 800);
@@ -76,5 +78,19 @@ public class Autores extends JFrame {
                 modelo.fireTableDataChanged();
             }
         });
+        
+        btnNuevo.addActionListener((ActionEvent ae) -> {
+            variable = 1;
+            autorDialog = new AutorDialogNuevo();
+            autorDialog.setVisible(true);
+//            userDialog.setVariable(variable);
+//            userDialog.setTxtNombre("");
+//            userDialog.setTxtNickName("");
+//            userDialog.setTxtContrasena("");
+//            userDialog.setRol("");
+//            userDialog.setPermitido("");
+//            userDialog.setVisible(true);
+        });
+        
     }
 }

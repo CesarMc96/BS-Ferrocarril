@@ -3,15 +3,18 @@ package Pantallas;
 import BD.ControladorUsuario;
 import BD.DataSourcePostgreSQL;
 import BD.ModeloUsuario;
+import BD.UsuariosDialogListener;
 import Modelo.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,7 +34,7 @@ public class Usuarios extends JFrame {
     private final JButton btnAceptar;
     private final JPanel pnlboton;
     private final JButton btnEliminar;
-    private UsuariosDialogNuevo udn;
+    private UsuariosDialog udn;
 
     public Usuarios() {
         super.setSize(800, 800);
@@ -69,19 +72,65 @@ public class Usuarios extends JFrame {
 
         //Acciones
         btnEliminar.addActionListener((ActionEvent ae) -> {
-
             int rowSelected = tblUsuario.getSelectedRow();
 
             if (rowSelected >= 0) {
+                System.out.println(controlador.buscar(rowSelected).getIdUsuario());
                 controlador.eliminar(controlador.buscar(rowSelected).getIdUsuario(), rowSelected);
                 controlador.guardar();
                 modelo.fireTableDataChanged();
             }
         });
 
+        udn = new UsuariosDialog(new Dialog(this));
+        udn.setListener(new UsuariosDialogListener() {
+            @Override
+            public void aceptarButtonClick(Usuario usuario) {
+                controlador.agregar(usuario);
+                modelo.fireTableDataChanged();
+            }
+
+            @Override
+            public void aceptarButtonClick(Usuario usuario, Integer in) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+
         btnNuevo.addActionListener((ActionEvent e) -> {
-            udn = new UsuariosDialogNuevo();
+            variable = 1;
+            udn.setTxtNombre("");
+            udn.setTxtTelefono("");
+            udn.setTxtApMaterno("");
+            udn.setTxtApPaterno("");
+            udn.setTxtDireccion("");
+            udn.setTxtCredencial("");
+            udn.setTxtCorreo("");
+            udn.agregarPH(variable);
+            udn.setVariable(variable);
+            udn.repaint();
             udn.setVisible(true);
+        });
+
+        btnModificar.addActionListener((ActionEvent e) -> {
+            variable = 2;
+
+            int rowSelected = tblUsuario.getSelectedRow();
+
+            if (rowSelected < 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione el usuario a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                udn.agregarPH(variable);
+                udn.setVariable(variable);
+                udn.setTxtNombre(controlador.buscar(rowSelected).getNombre());
+                udn.setTxtTelefono(controlador.buscar(rowSelected).getTelefono());
+                udn.setTxtApMaterno(controlador.buscar(rowSelected).getApMaterno());
+                udn.setTxtApPaterno(controlador.buscar(rowSelected).getApPaterno());
+                udn.setTxtDireccion(controlador.buscar(rowSelected).getDireccion());
+                udn.setTxtCredencial(controlador.buscar(rowSelected).getNumCredencial());
+                udn.setTxtCorreo(controlador.buscar(rowSelected).getCorreo());
+                udn.setModificar(rowSelected);
+                udn.setVisible(true);
+            }
         });
     }
 }

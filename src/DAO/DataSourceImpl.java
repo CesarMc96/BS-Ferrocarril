@@ -26,8 +26,8 @@ public class DataSourceImpl {
 
             Class.forName("org.postgresql.Driver");
             conexion = DriverManager.getConnection(protocolo, usuario, contrasena);
-            JOptionPane.showMessageDialog(null, " Se ha Establecido la Conecion a la Base de Datos Correctamente",
-                    "Conexion Realizada Exitosamente", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, " Se ha Establecido la Conecion a la Base de Datos Correctamente",
+//                    "Conexion Realizada Exitosamente", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
 

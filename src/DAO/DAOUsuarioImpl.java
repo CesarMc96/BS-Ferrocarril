@@ -183,7 +183,6 @@ public class DAOUsuarioImpl implements DAOUsuario {
 				+ "', direccion = '" + usuario.getDireccion()
 				+ "', telefono = '" + usuario.getTelefono()
 				+ "', correo = '" + usuario.getCorreo()
-				+ "', fecha_alta = '" + usuario.getFechaAlta()
 				+ "' WHERE id_usuario = " + id;
 		
 		valor = valor + ds.ejecutarActualizacion(update);
@@ -228,7 +227,6 @@ public class DAOUsuarioImpl implements DAOUsuario {
 				+ "', direccion = '" + usuario.getDireccion()
 				+ "', telefono = '" + usuario.getTelefono()
 				+ "', correo = '" + usuario.getCorreo()
-				+ "', fecha_alta = '" + usuario.getFechaAlta()
 				+ "' WHERE id_autor = " + id;
 		
 		valor = valor + ds.ejecutarActualizacion(update);
