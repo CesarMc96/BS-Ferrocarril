@@ -1,4 +1,4 @@
-package BDA;
+package BD;
 
 import Modelo.Libro;
 

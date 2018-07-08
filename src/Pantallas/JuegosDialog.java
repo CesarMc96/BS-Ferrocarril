@@ -49,7 +49,7 @@ public class JuegosDialog extends JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(0, 0));
+        setLocation(new java.awt.Point(700, 250));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

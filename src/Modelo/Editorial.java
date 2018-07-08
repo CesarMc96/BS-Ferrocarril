@@ -5,9 +5,6 @@ public class Editorial {
     private Integer idEditorial;
     private String nombre;
 
-    public Editorial() {
-    }
-
     public Editorial(Integer idEditorial, String nombre) {
         this.idEditorial = idEditorial;
         this.nombre = nombre;
@@ -15,6 +12,10 @@ public class Editorial {
 
     public Editorial(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Editorial() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

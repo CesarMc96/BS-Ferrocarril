@@ -1,8 +1,7 @@
-
 package Modelo;
 
 public class Juego {
-    
+
     private Integer idJuego;
     private String nombre;
     private Integer cantidad;
@@ -79,6 +78,5 @@ public class Juego {
     public String toString() {
         return "Juego{" + "idJuego=" + idJuego + ", nombre=" + nombre + ", cantidad=" + cantidad + ", piezas=" + piezas + ", accesorios=" + accesorios + ", descripcion=" + descripcion + '}';
     }
-    
-    
+
 }

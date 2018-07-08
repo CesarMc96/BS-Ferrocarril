@@ -1,8 +1,11 @@
 package BD;
 
 import Modelo.Autor;
+import Modelo.Compañia;
 import Modelo.Editorial;
 import Modelo.Juego;
+import Modelo.Multimedia;
+import Modelo.Pais;
 import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -117,6 +120,8 @@ public class DataSourcePostgreSQL implements DataSource {
                     arreglo.add(new Juego(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6)));
                 }
             }
+            
+
             rs.close();
             st.close();
             connection.close();

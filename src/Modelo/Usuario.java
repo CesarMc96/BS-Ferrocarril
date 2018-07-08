@@ -14,9 +14,6 @@ public class Usuario {
     private String correo;
     private Date fechaAlta;
 
-    public Usuario() {
-    }
-
     public Usuario(Integer idUsuario, String nombre, String apPaterno, String apMaterno, String numCredencial, String direccion, String telefono, String correo, Date fechaAlta) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -48,6 +45,10 @@ public class Usuario {
         this.direccion = direccion;
         this.telefono = telefono;
         this.correo = correo;
+    }
+
+    public Usuario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

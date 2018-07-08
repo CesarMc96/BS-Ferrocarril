@@ -6,9 +6,6 @@ public class Autor {
     private String nombre;
     private String apellidos;
 
-    public Autor() {
-    }
-
     public Autor(Integer idAutor, String nombre, String apellidos) {
         this.idAutor = idAutor;
         this.nombre = nombre;
@@ -18,6 +15,10 @@ public class Autor {
     public Autor(String nombre, String apellidos) {
         this.nombre = nombre;
         this.apellidos = apellidos;
+    }
+
+    public Autor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -49,4 +50,5 @@ public class Autor {
         this.apellidos = apellidos;
     }
 
+    
 }

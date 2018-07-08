@@ -15,9 +15,6 @@ public class Libro {
     private String descripcion;
     private Status status;
 
-    public Libro() {
-    }
-
     public Libro(Integer idLibro, String folio, String titulo, Autor autor, String isbn, Editorial editorial, Integer año, Pais pais, Estante estante, Sala sala, String descripcion, Status status) {
         this.idLibro = idLibro;
         this.folio = folio;
@@ -31,6 +28,24 @@ public class Libro {
         this.sala = sala;
         this.descripcion = descripcion;
         this.status = status;
+    }
+
+    public Libro(String folio, String titulo, Autor autor, String isbn, Editorial editorial, Integer año, Pais pais, Estante estante, Sala sala, String descripcion, Status status) {
+        this.folio = folio;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.editorial = editorial;
+        this.año = año;
+        this.pais = pais;
+        this.estante = estante;
+        this.sala = sala;
+        this.descripcion = descripcion;
+        this.status = status;
+    }
+
+    public Libro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

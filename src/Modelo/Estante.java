@@ -6,9 +6,6 @@ public class Estante {
     private Integer estante;
     private String nivel;
 
-    public Estante() {
-    }
-
     public Estante(Integer idEstante, Integer estante, String nivel) {
         this.idEstante = idEstante;
         this.estante = estante;

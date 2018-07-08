@@ -1,9 +1,11 @@
 package Pantallas;
 
 import BD.ControladorJuegos;
+import BD.ControladorMultimedia;
 import BD.DataSourcePostgreSQL;
 import BD.JuegosDialogListener;
 import BD.ModeloJuegos;
+import BD.ModeloMultimedia;
 import Modelo.Juego;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,13 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Juegos extends JFrame {
+public class Multimedia extends JFrame {
 
-    private JTable tblJuegos;
-    private ModeloJuegos modelo;
-    private final ArrayList<Juego> Juego;
+    private JTable tblMultimedia;
+    private ModeloMultimedia modelo;
+    private final ArrayList<Multimedia> Multimedia;
 
-    private ControladorJuegos controlador;
+    private ControladorMultimedia controlador;
     private Integer variable;
 
     private final JButton btnNuevo;
@@ -41,7 +43,7 @@ public class Juegos extends JFrame {
     private final JPanel pnlBotones1;
     private final JPanel pnlBotones2;
 
-    public Juegos() {
+    public Multimedia() {
         super.setSize(800, 600);
         super.setDefaultCloseOperation(0);
         super.setLocationRelativeTo(null);
@@ -50,11 +52,11 @@ public class Juegos extends JFrame {
         super.getContentPane().setBackground(Color.WHITE);
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        Juego = das.crearArreglo("Select * from juegos order by nombre asc", "Juego");
+        Multimedia = das.crearArreglo("Select * from multimedia order by nombre asc", "Multimedia");
 
         controlador = new ControladorJuegos(Juego);
         modelo = new ModeloJuegos(controlador.getDb());
-        tblJuegos = new JTable(modelo);
+        tblMultimedia = new JTable(modelo);
 
         lblJuegosTitulo = new JLabel();
         lblJuegosTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
@@ -89,7 +91,7 @@ public class Juegos extends JFrame {
 //        pnlboton.add(btnBuscar);
 
 //        tblJuegos.setFont(new Font("Arial", Font.PLAIN, 15));
-        JScrollPane scrool = new JScrollPane(tblJuegos);
+        JScrollPane scrool = new JScrollPane(tblMultimedia);
         scrool.getViewport().setBackground(Color.white);
 
         super.add(new JScrollPane(scrool));
@@ -98,7 +100,7 @@ public class Juegos extends JFrame {
 
         //Acciones
         btnEliminar.addActionListener((ActionEvent ae) -> {
-            int rowSelected = tblJuegos.getSelectedRow();
+            int rowSelected = tblMultimedia.getSelectedRow();
 
             if (rowSelected >= 0) {
                 System.out.println(controlador.buscar(rowSelected).getIdJuego());
@@ -154,7 +156,7 @@ public class Juegos extends JFrame {
         btnModificar.addActionListener((ActionEvent e) -> {
             variable = 2;
 
-            int rowSelected = tblJuegos.getSelectedRow();
+            int rowSelected = tblMultimedia.getSelectedRow();
 
             if (rowSelected < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione el juego a modificar.", "Error", JOptionPane.WARNING_MESSAGE);

@@ -5,9 +5,6 @@ public class Sala {
     private Integer idSala;
     private String descripcion;
 
-    public Sala() {
-    }
-
     public Sala(Integer idSala, String descripcion) {
         this.idSala = idSala;
         this.descripcion = descripcion;
@@ -24,7 +21,6 @@ public class Sala {
     }
 
     public Sala(String descripcion) {
-
         this.descripcion = descripcion;
     }
 

@@ -16,9 +16,6 @@ public class Prestamo {
     private String observaciones;
     private String accion;
 
-    public Prestamo() {
-    }
-
     public Prestamo(Integer idPrestamo, Date fechaPrestamo, Date fechaDevolucion, Integer numeroRenovacion, String titulo, String autor, String editorial, String nombreUsuario, String numCredencial, String observaciones, String accion) {
         this.idPrestamo = idPrestamo;
         this.fechaPrestamo = fechaPrestamo;
@@ -44,6 +41,10 @@ public class Prestamo {
         this.numCredencial = numCredencial;
         this.observaciones = observaciones;
         this.accion = accion;
+    }
+
+    public Prestamo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

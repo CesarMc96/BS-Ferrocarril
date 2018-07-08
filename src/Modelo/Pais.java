@@ -5,9 +5,6 @@ public class Pais {
     private Integer idPais;
     private String nombre;
 
-    public Pais() {
-    }
-
     public Pais(Integer idPais, String nombre) {
         this.idPais = idPais;
         this.nombre = nombre;
