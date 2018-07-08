@@ -11,10 +11,8 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -53,6 +51,9 @@ public class UsuariosDialog extends JDialog {
     private UsuariosDialogListener listener;
     private int opcion;
     private int indice;
+    private String tipo;
+    private int modificar;
+    private Date alta;
 
     public UsuariosDialog(Dialog f) {
         super(f, true);
@@ -62,8 +63,8 @@ public class UsuariosDialog extends JDialog {
         super.setTitle("BS - Ferrocarril");
         super.setLocationRelativeTo(null);
 
-        //Textos
-        lblUsuarioNuevo = new JLabel("Usuario Nuevo");
+        //Label
+        lblUsuarioNuevo = new JLabel("Usuario");
         lblNombre = new JLabel("Nombre: ");
         lblApPaterno = new JLabel("Apellido: ");
         lblApMaterno = new JLabel("Materno: ");
@@ -155,21 +156,35 @@ public class UsuariosDialog extends JDialog {
             //1 para nuevo 2 para modificar
 
             if (opcion == 1) {
-                System.out.println("opcion 1 alvaro");
                 DAOUsuarioImpl d = new DAOUsuarioImpl();
 
                 java.util.Date fechaq = new java.util.Date();
                 d.registrarUsuario(new Usuario(txtNombre.getText(), txtApPaterno.getText(), txtApMaterno.getText(), txtCredencial.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText(), new Date(fechaq.getYear(), fechaq.getMonth(), fechaq.getDay())));
 
                 UsuariosDialog.this.setVisible(false);
-//            f.setVisible(false);
-//            new Usuarios();
+                f.setVisible(false);
+                Usuarios u = new Usuarios(new Frame());
+                u.setVisible(true);
                 DataSourcePostgreSQL ds = new DataSourcePostgreSQL();
                 Usuarios = ds.crearArreglo("Select * from usuario", "Usuario");
                 ModeloUsuario ma = new ModeloUsuario(Usuarios);
                 listener.aceptarButtonClick(new Usuario(txtNombre.getText(), txtApPaterno.getText(), txtApMaterno.getText(), txtCredencial.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText(), new Date(fechaq.getYear(), fechaq.getMonth(), fechaq.getDay())));
 
                 this.setVisible(false);
+            } else if (opcion == 2) {
+
+                DataSourcePostgreSQL d = new DataSourcePostgreSQL();
+                System.out.println(modificar);
+                Usuario usuario = new Usuario(txtNombre.getText(), txtApPaterno.getText(), txtApMaterno.getText(), txtCredencial.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()), alta;
+
+                d.ejecutarActualizacion("UPDATE usuario SET  nombre = '" + usuario.getNombre() + "', ap_paterno = '" + usuario.getApPaterno() + "', ap_materno = '" + usuario.getApMaterno()
+                        + "', num_credencial = '" + usuario.getNumCredencial() + "', direccion = '" + usuario.getDireccion() + "', telefono = '" + usuario.getTelefono() + "', correo = '" + usuario.getCorreo()
+                        + "' WHERE id_usuario = " + indice);
+
+                this.setVisible(false);
+                f.setVisible(false);
+                Usuarios u = new Usuarios(new Frame());
+                u.setVisible(true);
             }
         });
     }
@@ -220,4 +235,5 @@ public class UsuariosDialog extends JDialog {
             PlaceHolder holder1 = new PlaceHolder(txtApPaterno, "     Paterno");
         }
     }
+
 }

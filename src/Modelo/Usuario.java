@@ -40,6 +40,16 @@ public class Usuario {
         this.fechaAlta = fechaAlta;
     }
 
+    public Usuario(String nombre, String apPaterno, String apMaterno, String numCredencial, String direccion, String telefono, String correo) {
+        this.nombre = nombre;
+        this.apPaterno = apPaterno;
+        this.apMaterno = apMaterno;
+        this.numCredencial = numCredencial;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+
     @Override
     public String toString() {
         return " Usuario : " + this.nombre + " " + this.apPaterno + " " + this.apMaterno

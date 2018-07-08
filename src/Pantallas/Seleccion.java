@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -80,7 +79,8 @@ public class Seleccion extends JFrame {
         
         //Acciones
         btnJuegos.addActionListener((ActionEvent e) -> {
-            
+            new Juegos();
+            this.setVisible(false);
         });
         
         btnBebes.addActionListener((ActionEvent e) -> {
@@ -88,7 +88,10 @@ public class Seleccion extends JFrame {
         });
         
         btnLibros.addActionListener((ActionEvent e) -> {
-           
+            new Libros();
+            this.setVisible(false);
+//           Usuarios u = new Usuarios(this);
+//           u.setVisible(true);
         });
         
         btnMultimedia.addActionListener((ActionEvent e) -> {

@@ -2,6 +2,7 @@ package BD;
 
 import Modelo.Autor;
 import Modelo.Editorial;
+import Modelo.Juego;
 import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -111,6 +112,11 @@ public class DataSourcePostgreSQL implements DataSource {
                 }
             }
 
+            if("Juego".equals(tipo)){
+                while (rs.next()) {
+                    arreglo.add(new Juego(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+                }
+            }
             rs.close();
             st.close();
             connection.close();
