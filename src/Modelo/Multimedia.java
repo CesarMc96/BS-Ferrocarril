@@ -23,7 +23,7 @@ public class Multimedia {
         this.formato = formato;
         this.copias = copias;
     }
-
+    
     public Multimedia(String titulo, String autor, String anio, Pais pais, Compañia compañia, Editorial editorial, String formato, Integer copias) {
         this.titulo = titulo;
         this.autor = autor;

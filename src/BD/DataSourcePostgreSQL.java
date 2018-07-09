@@ -105,7 +105,13 @@ public class DataSourcePostgreSQL implements DataSource {
 
             if ("Editorial".equals(tipo)) {
                 while (rs.next()) {
-                    arreglo.add(new Editorial(rs.getInt(1), rs.getString(2)));
+                    arreglo.add(new Editorial(rs.getString(1)));
+                }
+            }
+            
+            if ("Compañia".equals(tipo)) {
+                while (rs.next()) {
+                    arreglo.add(new Compañia(rs.getString(1)));
                 }
             }
 
@@ -121,7 +127,18 @@ public class DataSourcePostgreSQL implements DataSource {
                 }
             }
             
-
+            if("Pais".equals(tipo)){
+                while (rs.next()) {
+                    arreglo.add(new Pais(rs.getString(1)));
+                }
+            }
+            
+            if("Multimedia".equals(tipo)){
+                while (rs.next()) {                    
+                    arreglo.add(new Multimedia(rs.getInt(2), rs.getString(1), rs.getString(3), rs.getString(4), new Pais(rs.getInt(10), rs.getString(12)), new Compañia(rs.getInt(15), rs.getString(16)), new Editorial(rs.getInt(13), rs.getString(14)), rs.getString(8), rs.getInt(9)));
+                }
+            }
+            
             rs.close();
             st.close();
             connection.close();

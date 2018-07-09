@@ -1,14 +1,16 @@
-
 package Modelo;
 
 public class Compañia {
-    
+
     private Integer id_compañia;
     private String nombre;
 
-    
     public Compañia(Integer id_compañia, String nombre) {
         this.id_compañia = id_compañia;
+        this.nombre = nombre;
+    }
+
+    public Compañia(String nombre) {
         this.nombre = nombre;
     }
 
@@ -30,8 +32,7 @@ public class Compañia {
 
     @Override
     public String toString() {
-        return "Compa\u00f1ia{" + "id_compa\u00f1ia=" + id_compañia + ", nombre=" + nombre + '}';
+        return this.nombre;
     }
-    
-    
+
 }

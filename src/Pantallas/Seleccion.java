@@ -8,7 +8,7 @@ import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class Seleccion extends JFrame {
-
+    
     private final ImageIcon libros;
     private final ImageIcon librosEs;
     private final ImageIcon bebes;
@@ -26,7 +26,7 @@ public class Seleccion extends JFrame {
     private final JButton btnJuegos;
     private final JButton btnBebes;
     private final JPanel pnlAbajo;
-
+    
     public Seleccion() {
         super.setSize(850, 350);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -38,13 +38,13 @@ public class Seleccion extends JFrame {
         //Imagenes
         libros = new ImageIcon(getClass().getResource("/Imagenes/libros.png"));
         librosEs = new ImageIcon(libros.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
-
+        
         bebes = new ImageIcon(getClass().getResource("/Imagenes/bebes.png"));
         bebesEs = new ImageIcon(bebes.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
-
+        
         multimedia = new ImageIcon(getClass().getResource("/Imagenes/multimedia.png"));
         multimediaEs = new ImageIcon(multimedia.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
-
+        
         juegos = new ImageIcon(getClass().getResource("/Imagenes/juegos.png"));
         juegosEs = new ImageIcon(juegos.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 
@@ -71,12 +71,12 @@ public class Seleccion extends JFrame {
         
         pnlSeccion = new JPanel();
         pnlSeccion.setBackground(Color.WHITE);
-
+        
         pnlSeccion.add(btnLibros);
         pnlSeccion.add(btnMultimedia);
         pnlSeccion.add(btnJuegos);
         pnlSeccion.add(btnBebes);
-        
+
         //Acciones
         btnJuegos.addActionListener((ActionEvent e) -> {
             new Juegos();
@@ -90,14 +90,13 @@ public class Seleccion extends JFrame {
         btnLibros.addActionListener((ActionEvent e) -> {
             new Libros();
             this.setVisible(false);
-//           Usuarios u = new Usuarios(this);
-//           u.setVisible(true);
         });
         
         btnMultimedia.addActionListener((ActionEvent e) -> {
-            
+            new Multimedias();
+            this.setVisible(false);
         });
-        
+
         //Panel arriba
         pnlTitulo = new JPanel();
         pnlTitulo.setLayout(new BorderLayout());
@@ -111,7 +110,6 @@ public class Seleccion extends JFrame {
         pnlTitulo.add(lblTitulo, BorderLayout.PAGE_START);
         pnlTitulo.add(new JLabel(), BorderLayout.CENTER);
         pnlTitulo.add(lblTexto, BorderLayout.PAGE_END);
-        
 
         //Panel abajo
         pnlAbajo = new JPanel();

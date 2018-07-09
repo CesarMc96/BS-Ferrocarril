@@ -31,7 +31,8 @@ public class DAOLibroImpl implements DAOLibro {
 		Statement st = null;
 		String sentencia;
 		
-		sentencia = "Select t1.id_libro, t1.folio, t1.titulo, t2.nombre, t2.apellidos, t1.isbn, t3.nombre, t1.año, t4.nombre," +
+		sentencia = "Select t1.id_multimedia, t1.titulo, t1.autor, t1.anio, t2.pais, t3."
+                        + ", t2.nombre, t2.apellidos, t1.isbn, t3.nombre, t1.año, t4.nombre," +
 		"t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From  libro t1 inner join autor t2 on " +
 		"autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial inner join pais t4  on pais_id = id_pais " + 
 		"inner join estante t5 on estante_id = id_estante inner join status t6 on status_id = id_status ";

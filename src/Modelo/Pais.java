@@ -16,7 +16,7 @@ public class Pais {
 
     @Override
     public String toString() {
-        return " Pais : " + this.nombre + ". \n ";
+        return this.nombre;
     }
 
     public Integer getIdPais() {

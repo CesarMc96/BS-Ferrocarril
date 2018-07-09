@@ -158,36 +158,41 @@ public class JuegosDialog extends JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //1 para nuevo 2 para modificar
 
-        if (opcion == 1) {
-            DataSourcePostgreSQL d = new DataSourcePostgreSQL();
-            Juego juego = new Juego(txtNombre.getText(), ListaCantidad.getSelectedIndex() + 1, txtPiezas.getText(), txtAccesorios.getText(), txtDescripcion.getText());
+        if (txtNombre.getText().equals("") || txtAccesorios.getText().equals("") || txtPiezas.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Las campos Nombre, Accesorios y Piezas no pueden ir vacios.", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
 
-            String consulta = "INSERT INTO juegos(nombre, cantidad, piezas, accesorios, descripcion) VALUES ( '" + juego.getNombre() + "', '" + juego.getCantidad() + "', '" + juego.getPiezas() + "', '" + juego.getAccesorios() + "', '" + juego.getDescripcion() + "')";
+            if (opcion == 1) {
+                DataSourcePostgreSQL d = new DataSourcePostgreSQL();
+                Juego juego = new Juego(txtNombre.getText(), ListaCantidad.getSelectedIndex() + 1, txtPiezas.getText(), txtAccesorios.getText(), txtDescripcion.getText());
 
-            d.ejecutarActualizacion(consulta);
+                String consulta = "INSERT INTO juegos(nombre, cantidad, piezas, accesorios, descripcion) VALUES ( '" + juego.getNombre() + "', '" + juego.getCantidad() + "', '" + juego.getPiezas() + "', '" + juego.getAccesorios() + "', '" + juego.getDescripcion() + "')";
 
-            this.setVisible(false);
-            da.setVisible(false);
-            Juegos u = new Juegos();
-            u.setVisible(true);
+                d.ejecutarActualizacion(consulta);
 
-            DataSourcePostgreSQL ds = new DataSourcePostgreSQL();
-            Juegos = ds.crearArreglo("Select * from juegos", "Juego");
-            ModeloJuegos ma = new ModeloJuegos(Juegos);
-            listener.aceptarButtonClick(juego);
+                this.setVisible(false);
+                da.setVisible(false);
+                Juegos u = new Juegos();
+                u.setVisible(true);
 
-            this.setVisible(false);
-        } else if (opcion == 2) {
-            DataSourcePostgreSQL d = new DataSourcePostgreSQL();
-            Juego juego = new Juego(txtNombre.getText(), ListaCantidad.getSelectedIndex() + 1, txtPiezas.getText(), txtAccesorios.getText(), txtDescripcion.getText());
+                DataSourcePostgreSQL ds = new DataSourcePostgreSQL();
+                Juegos = ds.crearArreglo("Select * from juegos", "Juego");
+                ModeloJuegos ma = new ModeloJuegos(Juegos);
+                listener.aceptarButtonClick(juego);
 
-            d.ejecutarActualizacion("UPDATE juegos SET  nombre = '" + juego.getNombre() + "',cantidad = '" + juego.getCantidad() + "', piezas = '" + juego.getPiezas()
-                    + "', accesorios = '" + juego.getAccesorios() + "', descripcion = '" + juego.getDescripcion() + "' WHERE id_juegos= " + indice);
+                this.setVisible(false);
+            } else if (opcion == 2) {
+                DataSourcePostgreSQL d = new DataSourcePostgreSQL();
+                Juego juego = new Juego(txtNombre.getText(), ListaCantidad.getSelectedIndex() + 1, txtPiezas.getText(), txtAccesorios.getText(), txtDescripcion.getText());
 
-            this.setVisible(false);
-            da.setVisible(false);
-            Juegos u = new Juegos();
-            u.setVisible(true);
+                d.ejecutarActualizacion("UPDATE juegos SET  nombre = '" + juego.getNombre() + "',cantidad = '" + juego.getCantidad() + "', piezas = '" + juego.getPiezas()
+                        + "', accesorios = '" + juego.getAccesorios() + "', descripcion = '" + juego.getDescripcion() + "' WHERE id_juegos= " + indice);
+
+                this.setVisible(false);
+                da.setVisible(false);
+                Juegos u = new Juegos();
+                u.setVisible(true);
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

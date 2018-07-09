@@ -20,7 +20,7 @@ public class Editorial {
 
     @Override
     public String toString() {
-        return "Editorial : " + this.nombre + ". \n ";
+        return this.nombre;
     }
 
     public Integer getIdEditorial() {

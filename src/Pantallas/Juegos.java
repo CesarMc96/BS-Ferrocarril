@@ -33,8 +33,6 @@ public class Juegos extends JFrame {
     private final JPanel pnlboton;
     private final JButton btnEliminar;
     private JuegosDialog udn;
-//    private final JTextField txtBuscar;
-//    private final JButton btnBuscar;
     private String Consulta;
     private Integer indice;
     private final JLabel lblJuegosTitulo;
@@ -60,7 +58,7 @@ public class Juegos extends JFrame {
         lblJuegosTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
         lblJuegosTitulo.setText("JUEGOS");
         lblJuegosTitulo.setForeground(Color.red);
-        
+
         //Boton
         pnlBotones = new JPanel();
         pnlBotones.setLayout(new BorderLayout());
@@ -78,17 +76,12 @@ public class Juegos extends JFrame {
         pnlBotones2.add(btnEliminar);
         pnlBotones.add(pnlBotones1, BorderLayout.PAGE_START);
         pnlBotones.add(pnlBotones2, BorderLayout.CENTER);
-//        txtBuscar = new JTextField(10);
-//        btnBuscar = new JButton("Buscar");
 
         pnlboton = new JPanel();
         pnlboton.setBackground(Color.white);
         btnAceptar = new JButton("Cerrar");
         pnlboton.add(btnAceptar);
-//        pnlboton.add(txtBuscar);
-//        pnlboton.add(btnBuscar);
 
-//        tblJuegos.setFont(new Font("Arial", Font.PLAIN, 15));
         JScrollPane scrool = new JScrollPane(tblJuegos);
         scrool.getViewport().setBackground(Color.white);
 
@@ -130,16 +123,8 @@ public class Juegos extends JFrame {
 
         });
 
-        System.out.println(indice + " indice");
         super.setVisible(true);
 
-//        btnBuscar.addActionListener((ActionEvent e) -> {
-//            Consulta = "Select * from juegos where nombre ilike '%" + txtBuscar.getText() + "%'";
-//
-//            this.setVisible(false);
-//            Usuarios us = new Usuarios(Consulta);
-//            us.setVisible(true);
-//        });
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
             udn.setTxtNombre("");
