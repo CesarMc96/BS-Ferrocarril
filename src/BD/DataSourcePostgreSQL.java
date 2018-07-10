@@ -108,7 +108,7 @@ public class DataSourcePostgreSQL implements DataSource {
                     arreglo.add(new Editorial(rs.getString(1)));
                 }
             }
-            
+
             if ("Compañia".equals(tipo)) {
                 while (rs.next()) {
                     arreglo.add(new Compañia(rs.getString(1)));
@@ -117,28 +117,30 @@ public class DataSourcePostgreSQL implements DataSource {
 
             if ("Usuario".equals(tipo)) {
                 while (rs.next()) {
-                    arreglo.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDate(9)));
+                    arreglo.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                            rs.getString(6), rs.getString(7), rs.getString(8), rs.getDate(9)));
                 }
             }
 
-            if("Juego".equals(tipo)){
+            if ("Juego".equals(tipo)) {
                 while (rs.next()) {
                     arreglo.add(new Juego(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6)));
                 }
             }
-            
-            if("Pais".equals(tipo)){
+
+            if ("Pais".equals(tipo)) {
                 while (rs.next()) {
                     arreglo.add(new Pais(rs.getString(1)));
                 }
             }
-            
-            if("Multimedia".equals(tipo)){
-                while (rs.next()) {                    
-                    arreglo.add(new Multimedia(rs.getInt(2), rs.getString(1), rs.getString(3), rs.getString(4), new Pais(rs.getInt(10), rs.getString(12)), new Compañia(rs.getInt(15), rs.getString(16)), new Editorial(rs.getInt(13), rs.getString(14)), rs.getString(8), rs.getInt(9)));
+
+            if ("Multimedia".equals(tipo)) {
+                while (rs.next()) {
+                    arreglo.add(new Multimedia(rs.getInt(2), rs.getString(1), rs.getString(3), rs.getString(4), new Pais(rs.getInt(10),
+                            rs.getString(12)), new Compañia(rs.getInt(15), rs.getString(16)), new Editorial(rs.getInt(13), rs.getString(14)), rs.getString(8), rs.getInt(9)));
                 }
             }
-            
+
             rs.close();
             st.close();
             connection.close();
