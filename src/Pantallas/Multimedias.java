@@ -57,7 +57,7 @@ public class Multimedias extends JFrame {
         Consulta2 = "Select * from multimedia "
                 + " join  pais on pais_id = pais.id_pais"
                 + " join editorial on editorial_id = id_editorial"
-                + " join compania on compania_id = id_compania";
+                + " join compania on compania_id = id_compania order by titulo asc";
 
         Multimedia = das.crearArreglo(Consulta2, "Multimedia");
         controlador = new ControladorMultimedia(Multimedia);

@@ -11,14 +11,15 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class Usuarios extends JDialog {
+public class Usuarios extends JFrame {
 
     private JTable tblUsuario;
     private ModeloUsuario modelo;
@@ -37,13 +38,15 @@ public class Usuarios extends JDialog {
     private final JTextField txtBuscar;
     private final JButton btnBuscar;
     private String Consulta;
+    private JLabel lblUsuarioTitulo;
+    private JPanel pnlBotones1;
+    private JPanel pnlBotones2;
 
-    public Usuarios(Frame f) {
-        super(f, true);
-        super.setSize(800, 800);
+    public Usuarios() {
+        super.setSize(800, 600);
         super.setDefaultCloseOperation(0);
         super.setLocationRelativeTo(null);
-        super.setTitle("Usuarios");
+        super.setTitle("BS - Ferrocarril");
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
 
@@ -54,28 +57,45 @@ public class Usuarios extends JDialog {
         modelo = new ModeloUsuario(controlador.getDb());
         tblUsuario = new JTable(modelo);
 
+        lblUsuarioTitulo = new JLabel();
+        lblUsuarioTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
+        lblUsuarioTitulo.setText("USUARIOS");
+        lblUsuarioTitulo.setForeground(Color.red);
+
         //Boton
         pnlBotones = new JPanel();
+        pnlBotones.setLayout(new BorderLayout());
+        pnlBotones1 = new JPanel();
+        pnlBotones2 = new JPanel();
+        pnlBotones.setBackground(Color.white);
+        pnlBotones1.setBackground(Color.white);
+        pnlBotones2.setBackground(Color.white);
         btnNuevo = new JButton("Nuevo");
         btnModificar = new JButton("Modificar");
         btnEliminar = new JButton("Eliminar");
-        pnlBotones.add(btnNuevo);
-        pnlBotones.add(btnModificar);
-        pnlBotones.add(btnEliminar);
+        pnlBotones1.add(lblUsuarioTitulo);
+        pnlBotones2.add(btnNuevo);
+        pnlBotones2.add(btnModificar);
+        pnlBotones2.add(btnEliminar);
+        pnlBotones.add(pnlBotones1, BorderLayout.PAGE_START);
+        pnlBotones.add(pnlBotones2, BorderLayout.CENTER);
         txtBuscar = new JTextField(10);
         btnBuscar = new JButton("Buscar");
 
         pnlboton = new JPanel();
-        btnAceptar = new JButton("Aceptar");
+        pnlboton.setBackground(Color.white);
+        btnAceptar = new JButton("Cerrar");
         pnlboton.add(btnAceptar);
         pnlboton.add(txtBuscar);
         pnlboton.add(btnBuscar);
 
-        super.add(new JScrollPane(tblUsuario));
+        JScrollPane scrool = new JScrollPane(tblUsuario);
+        scrool.getViewport().setBackground(Color.white);
+
+        super.add(new JScrollPane(scrool));
         super.add(pnlboton, BorderLayout.PAGE_END);
         super.add(pnlBotones, BorderLayout.PAGE_START);
 
-        //super.setVisible(true);
         //Acciones
         btnEliminar.addActionListener((ActionEvent ae) -> {
             int rowSelected = tblUsuario.getSelectedRow();
@@ -88,21 +108,14 @@ public class Usuarios extends JDialog {
             }
         });
 
-        udn = new UsuariosDialog(this);
-        udn.setListener(new UsuariosDialogListener() {
-            @Override
-            public void aceptarButtonClick(Usuario usuario) {
-                controlador.agregar(usuario);
-                modelo.fireTableDataChanged();
-            }
-
-            @Override
-            public void aceptarButtonClick(Usuario usuario, Integer in) {
-                controlador.getDb();
-                controlador.modificar(in, usuario);
-                modelo.fireTableDataChanged();
-            }
+        btnAceptar.addActionListener((ActionEvent e) -> {
+            this.setVisible(false);
+            new Seleccion();
         });
+
+        udn = new UsuariosDialog(this);
+
+        super.setVisible(true);
 
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
@@ -140,11 +153,6 @@ public class Usuarios extends JDialog {
             }
         });
 
-        btnAceptar.addActionListener((ActionEvent e) -> {
-            this.setVisible(false);
-            System.exit(0);
-        });
-
         btnBuscar.addActionListener((ActionEvent e) -> {
             Consulta = "Select * from usuario where nombre ilike '%" + txtBuscar.getText() + "%' or ap_paterno ilike '%" + txtBuscar.getText()
                     + "%' or ap_materno ilike '%" + txtBuscar.getText() + "%' or num_credencial ilike '%" + txtBuscar.getText() + "%' or correo ilike '%" + txtBuscar.getText() + "%'";
@@ -157,10 +165,11 @@ public class Usuarios extends JDialog {
 
     public Usuarios(String consulta) {
         Consulta = consulta;
-        super.setSize(800, 800);
+
+        super.setSize(800, 600);
         super.setDefaultCloseOperation(0);
         super.setLocationRelativeTo(null);
-        super.setTitle("Usuarios");
+        super.setTitle("BS - Ferrocarril");
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
 
@@ -171,24 +180,42 @@ public class Usuarios extends JDialog {
         modelo = new ModeloUsuario(controlador.getDb());
         tblUsuario = new JTable(modelo);
 
+        lblUsuarioTitulo = new JLabel();
+        lblUsuarioTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
+        lblUsuarioTitulo.setText("USUARIOS");
+        lblUsuarioTitulo.setForeground(Color.red);
+
         //Boton
         pnlBotones = new JPanel();
+        pnlBotones.setLayout(new BorderLayout());
+        pnlBotones1 = new JPanel();
+        pnlBotones2 = new JPanel();
+        pnlBotones.setBackground(Color.white);
+        pnlBotones1.setBackground(Color.white);
+        pnlBotones2.setBackground(Color.white);
         btnNuevo = new JButton("Nuevo");
         btnModificar = new JButton("Modificar");
         btnEliminar = new JButton("Eliminar");
-        pnlBotones.add(btnNuevo);
-        pnlBotones.add(btnModificar);
-        pnlBotones.add(btnEliminar);
+        pnlBotones1.add(lblUsuarioTitulo);
+        pnlBotones2.add(btnNuevo);
+        pnlBotones2.add(btnModificar);
+        pnlBotones2.add(btnEliminar);
+        pnlBotones.add(pnlBotones1, BorderLayout.PAGE_START);
+        pnlBotones.add(pnlBotones2, BorderLayout.CENTER);
         txtBuscar = new JTextField(10);
         btnBuscar = new JButton("Buscar");
 
         pnlboton = new JPanel();
-        btnAceptar = new JButton("Aceptar");
+        pnlboton.setBackground(Color.white);
+        btnAceptar = new JButton("Cerrar");
         pnlboton.add(btnAceptar);
         pnlboton.add(txtBuscar);
         pnlboton.add(btnBuscar);
 
-        super.add(new JScrollPane(tblUsuario));
+        JScrollPane scrool = new JScrollPane(tblUsuario);
+        scrool.getViewport().setBackground(Color.white);
+
+        super.add(new JScrollPane(scrool));
         super.add(pnlboton, BorderLayout.PAGE_END);
         super.add(pnlBotones, BorderLayout.PAGE_START);
 
@@ -205,21 +232,14 @@ public class Usuarios extends JDialog {
             }
         });
 
-        udn = new UsuariosDialog(this);
-        udn.setListener(new UsuariosDialogListener() {
-            @Override
-            public void aceptarButtonClick(Usuario usuario) {
-                controlador.agregar(usuario);
-                modelo.fireTableDataChanged();
-            }
-
-            @Override
-            public void aceptarButtonClick(Usuario usuario, Integer in) {
-                controlador.getDb();
-                controlador.modificar(in, usuario);
-                modelo.fireTableDataChanged();
-            }
+        btnAceptar.addActionListener((ActionEvent e) -> {
+            this.setVisible(false);
+            new Seleccion();
         });
+
+        udn = new UsuariosDialog(this);
+
+        super.setVisible(true);
 
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
@@ -257,11 +277,6 @@ public class Usuarios extends JDialog {
                 System.out.println(controlador.buscar(rowSelected).getFechaAlta());
                 udn.setVisible(true);
             }
-        });
-
-        btnAceptar.addActionListener((ActionEvent e) -> {
-            this.setVisible(false);
-            System.exit(0);
         });
 
         btnBuscar.addActionListener((ActionEvent e) -> {

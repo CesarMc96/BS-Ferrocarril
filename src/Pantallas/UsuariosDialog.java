@@ -2,179 +2,196 @@ package Pantallas;
 
 import BD.DataSourcePostgreSQL;
 import BD.ModeloUsuario;
-import BD.UsuariosDialogListener;
 import DAO.DAOUsuarioImpl;
 import Modelo.Usuario;
 import com.placeholder.PlaceHolder;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class UsuariosDialog extends JDialog {
 
-    private final JPanel pnlBotones;
-    private final JButton btnGuardar;
-    private final JButton btnCancelar;
-    private final JLabel lblNombre;
-    private final JLabel lblApMaterno;
-    private final JLabel lblApPaterno;
-    private final JLabel lblCredencial;
-    private final JLabel lblDireccion;
-    private final JLabel lblTelefono;
-    private final JLabel lblCorreo;
-    private final JLabel lblUsuarioNuevo;
-    private final JPanel pnlTitulo;
-    private JTextField txtNombre;
-    private JTextField txtApPaterno;
-    private JTextField txtApMaterno;
-    private JTextField txtCredencial;
-    private JTextField txtDireccion;
-    private JTextField txtCorreo;
-    private JTextField txtTelefono;
-    private final JPanel pnlTexto;
-    private final JPanel pnlTexto1;
-    private final JPanel pnlTexto3;
-    private final JPanel pnlTexto2;
-    private ArrayList<Usuario> Usuarios;
-    private UsuariosDialogListener listener;
-    private int opcion;
     private int indice;
-    private String tipo;
-    private int modificar;
-    private Date alta;
+    private int opcion;
+    private final Frame da;
+    private ArrayList Usuarios;
 
-    public UsuariosDialog(Dialog f) {
+    public UsuariosDialog(Frame f) {
         super(f, true);
-        super.setSize(600, 280);
-        super.setBackground(Color.WHITE);
-        super.setLayout(new BorderLayout());
-        super.setTitle("BS - Ferrocarril");
         super.setLocationRelativeTo(null);
+        super.setTitle("BS - Ferrocarril");
+        da = f;
 
-        //Label
-        lblUsuarioNuevo = new JLabel("Usuario");
-        lblNombre = new JLabel("Nombre: ");
-        lblApPaterno = new JLabel("Apellido: ");
-        lblApMaterno = new JLabel("Materno: ");
-        lblCredencial = new JLabel("Credencial: ");
-        lblDireccion = new JLabel("Direccion: ");
-        lblTelefono = new JLabel("Telefono: ");
-        lblCorreo = new JLabel("Correo: ");
+        initComponents();
+    }
 
-        //Text
-        txtNombre = new JTextField(12);
-        txtApPaterno = new JTextField(8);
-        txtApMaterno = new JTextField(8);
-        txtCredencial = new JTextField(5);
-        txtDireccion = new JTextField(17);
-        txtTelefono = new JTextField(10);
-        txtCorreo = new JTextField(17);
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-        //Paneles 
-        pnlTexto = new JPanel();
-        pnlTexto.setLayout(new BorderLayout());
-        pnlTexto1 = new JPanel();
-        pnlTexto1.setPreferredSize(new Dimension(600, 50));
-        pnlTexto2 = new JPanel();
-        pnlTexto2.setPreferredSize(new Dimension(600, 50));
-        pnlTexto3 = new JPanel();
-        pnlTexto3.setPreferredSize(new Dimension(600, 50));
-        pnlTexto1.setBackground(Color.WHITE);
-        pnlTexto2.setBackground(Color.WHITE);
-        pnlTexto3.setBackground(Color.WHITE);
-        pnlTexto.add(pnlTexto1, BorderLayout.PAGE_START);
-        pnlTexto.add(pnlTexto2, BorderLayout.CENTER);
-        pnlTexto.add(pnlTexto3, BorderLayout.PAGE_END);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDireccion = new javax.swing.JTextPane();
+        txtNombre = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtApMaterno = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtCredencial = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        txtApPaterno = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
-        pnlTexto1.add(lblNombre);
-        pnlTexto1.add(txtNombre);
-        pnlTexto1.add(new JLabel("                    "));
-        pnlTexto1.add(lblApPaterno);
-        pnlTexto1.add(txtApPaterno);
-        pnlTexto1.add(txtApMaterno);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(700, 250));
+        setResizable(false);
 
-        pnlTexto2.add(lblDireccion);
-        pnlTexto2.add(txtDireccion);
-        pnlTexto2.add(new JLabel("           "));
-        pnlTexto2.add(lblCredencial);
-        pnlTexto2.add(txtCredencial);
-        pnlTexto2.add(new JLabel("                      "));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
 
-        pnlTexto3.add(lblCorreo);
-        pnlTexto3.add(txtCorreo);
-        pnlTexto3.add(new JLabel("              "));
-        pnlTexto3.add(lblTelefono);
-        pnlTexto3.add(txtTelefono);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel2.setText("USUARIO");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(310, 0, 220, 60);
 
-        //Titulo
-        pnlTitulo = new JPanel();
-        pnlTitulo.setPreferredSize(new Dimension(600, 50));
-        lblUsuarioNuevo.setFont(new Font("Times New Roman", Font.BOLD, 22));
-        pnlTitulo.add(lblUsuarioNuevo);
-        pnlTitulo.setBackground(Color.white);
-        super.add(pnlTitulo, BorderLayout.PAGE_START);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel3.setLabelFor(txtNombre);
+        jLabel3.setText("Nombre:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(150, 80, 70, 19);
 
-        //Botones
-        pnlBotones = new JPanel();
-        pnlBotones.setBackground(Color.WHITE);
+        jScrollPane1.setViewportView(txtDireccion);
 
-        btnGuardar = new JButton("Guardar");
-        btnCancelar = new JButton("Cancelar");
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(220, 170, 220, 50);
 
-        pnlBotones.add(btnGuardar);
-        pnlBotones.add(new JLabel("            "));
-        pnlBotones.add(btnCancelar);
+        txtNombre.setText("   ");
+        jPanel1.add(txtNombre);
+        txtNombre.setBounds(220, 80, 220, 22);
 
-        super.add(pnlBotones, BorderLayout.PAGE_END);
-        super.add(pnlTexto, BorderLayout.CENTER);
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel5.setText("Apellidos:");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(150, 120, 70, 19);
+        jPanel1.add(txtApMaterno);
+        txtApMaterno.setBounds(340, 120, 100, 22);
 
-        //acciones
-        btnCancelar.addActionListener((ActionEvent e) -> {
-            int n = JOptionPane.showConfirmDialog(
-                    f,
-                    "¿Deseas cancelar cambio?",
-                    "¿Seguro?",
-                    JOptionPane.YES_NO_OPTION);
-            if (n == JOptionPane.YES_OPTION) {
-                this.setVisible(false);
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel6.setText("Credencial:");
+        jLabel6.setToolTipText("");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(270, 330, 73, 19);
+        jPanel1.add(txtCredencial);
+        txtCredencial.setBounds(350, 330, 90, 22);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel7.setText("Direccion:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(150, 170, 90, 20);
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnGuardar);
+        btnGuardar.setBounds(270, 390, 80, 25);
 
-        btnGuardar.addActionListener((ActionEvent e) -> {
-            //1 para nuevo 2 para modificar
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancelar);
+        btnCancelar.setBounds(360, 390, 90, 25);
+        jPanel1.add(txtApPaterno);
+        txtApPaterno.setBounds(220, 120, 100, 22);
 
+        txtCorreo.setText("   ");
+        jPanel1.add(txtCorreo);
+        txtCorreo.setBounds(220, 240, 220, 22);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel4.setLabelFor(txtNombre);
+        jLabel4.setText("Correo:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(150, 240, 70, 19);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel8.setLabelFor(txtNombre);
+        jLabel8.setText("Telefono:");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(250, 290, 70, 19);
+
+        txtTelefono.setText("   ");
+        jPanel1.add(txtTelefono);
+        txtTelefono.setBounds(320, 290, 120, 22);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user.png"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(-260, -60, 520, 530);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        int n = JOptionPane.showConfirmDialog(
+                da,
+                "¿Deseas cancelar cambio?",
+                "¿Seguro?",
+                JOptionPane.YES_NO_OPTION);
+        if (n == JOptionPane.YES_OPTION) {
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        if (txtApMaterno.getText().equals("") || txtApPaterno.getText().equals("") || txtCredencial.getText().equals("") || txtDireccion.getText().equals("") || txtNombre.getText().equals("") || txtTelefono.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "El unico campo que puede estar vacio es correo.", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
             if (opcion == 1) {
                 DAOUsuarioImpl d = new DAOUsuarioImpl();
 
                 java.util.Date fechaq = new java.util.Date();
                 d.registrarUsuario(new Usuario(txtNombre.getText(), txtApPaterno.getText(), txtApMaterno.getText(), txtCredencial.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText(), new Date(fechaq.getYear(), fechaq.getMonth(), fechaq.getDay())));
 
-                UsuariosDialog.this.setVisible(false);
-                f.setVisible(false);
-                Usuarios u = new Usuarios(new Frame());
+                this.setVisible(false);
+                da.setVisible(false);
+                Usuarios u = new Usuarios();
                 u.setVisible(true);
                 DataSourcePostgreSQL ds = new DataSourcePostgreSQL();
                 Usuarios = ds.crearArreglo("Select * from usuario", "Usuario");
                 ModeloUsuario ma = new ModeloUsuario(Usuarios);
-                listener.aceptarButtonClick(new Usuario(txtNombre.getText(), txtApPaterno.getText(), txtApMaterno.getText(), txtCredencial.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText(), new Date(fechaq.getYear(), fechaq.getMonth(), fechaq.getDay())));
 
                 this.setVisible(false);
             } else if (opcion == 2) {
 
                 DataSourcePostgreSQL d = new DataSourcePostgreSQL();
-                System.out.println(modificar);
                 Usuario usuario = new Usuario(txtNombre.getText(), txtApPaterno.getText(), txtApMaterno.getText(), txtCredencial.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()), alta;
 
                 d.ejecutarActualizacion("UPDATE usuario SET  nombre = '" + usuario.getNombre() + "', ap_paterno = '" + usuario.getApPaterno() + "', ap_materno = '" + usuario.getApMaterno()
@@ -182,16 +199,12 @@ public class UsuariosDialog extends JDialog {
                         + "' WHERE id_usuario = " + indice);
 
                 this.setVisible(false);
-                f.setVisible(false);
-                Usuarios u = new Usuarios(new Frame());
+                da.setVisible(false);
+                Usuarios u = new Usuarios();
                 u.setVisible(true);
             }
-        });
-    }
-
-    public void setListener(UsuariosDialogListener listener) {
-        this.listener = listener;
-    }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     public void setTxtNombre(String txtNombre) {
         this.txtNombre.setText(txtNombre);
@@ -236,4 +249,25 @@ public class UsuariosDialog extends JDialog {
         }
     }
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtApMaterno;
+    private javax.swing.JTextField txtApPaterno;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtCredencial;
+    private javax.swing.JTextPane txtDireccion;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
+    // End of variables declaration//GEN-END:variables
 }

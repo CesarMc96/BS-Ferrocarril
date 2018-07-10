@@ -101,7 +101,7 @@ public class Seleccion extends JFrame {
         btnBebes.setToolTipText("Bebés");
 
         btnDerecha = new JButton();
-        btnDerecha.setIcon(izquierdaEs);
+        btnDerecha.setIcon(derechaEs);
         btnDerecha.setBorder(null);
         btnDerecha.setBackground(Color.WHITE);
         btnDerecha.setToolTipText("Siguiente");
@@ -148,7 +148,7 @@ public class Seleccion extends JFrame {
         btnReporte.setToolTipText("Reporte");
         
         btnIzquierda = new JButton();
-        btnIzquierda.setIcon(derechaEs);
+        btnIzquierda.setIcon(izquierdaEs);
         btnIzquierda.setBorder(null);
         btnIzquierda.setBackground(Color.WHITE);
         btnIzquierda.setToolTipText("Atras");
@@ -202,6 +202,11 @@ public class Seleccion extends JFrame {
 
         btnMultimedia.addActionListener((ActionEvent e) -> {
             new Multimedias();
+            this.setVisible(false);
+        });
+        
+        btnUsuario.addActionListener((ActionEvent e) -> {
+            new Usuarios();
             this.setVisible(false);
         });
 
