@@ -12,25 +12,42 @@ import Modelo.Autor;
 import Modelo.Editorial;
 import Modelo.Libro;
 import Modelo.Prestamo;
+import Modelo.Reporte;
 import Modelo.Usuario;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Controlador {
-
+	
     private DataSourceImpl ds;
     private DAOAutorImpl daoAutor;
     private DAOEditorialImpl daoEditorial;
     private DAOLibroImpl daoLibro;
     private DAOPrestamoImpl daoPrestamo;
     private DAOUsuarioImpl daoUsuario;
+    private DAOReporteImpl daoReporte;
     private Object[][] matriz;
 
     public Controlador() {
 
+        ds = new DataSourceImpl();
         daoAutor = new DAOAutorImpl();
         daoEditorial = new DAOEditorialImpl();
         daoLibro = new DAOLibroImpl();
         daoPrestamo = new DAOPrestamoImpl();
         daoUsuario = new DAOUsuarioImpl();
+        daoReporte = new DAOReporteImpl();
+
+    }
+
+    public void iniciarConexion() {
+        ds.iniciarConexion();
+    }
+
+    public void cerrarConexion() {
+        ds.cerrarConexion();
     }
 
     public int registrarAutor(Autor autor) {
@@ -334,6 +351,56 @@ public class Controlador {
 
     }
 
+    public int actualizarPrestamo(Integer idPrestamo) {
+
+        return daoReporte.actualizarPrestamo(idPrestamo);
+
+    }
+
+    public int actualizarPrestamo(String isbn) {
+
+        return daoReporte.actualizarPrestamo(isbn);
+
+    }
+
+    public Autor autorMasSolicitado(String mes) {
+
+        return daoReporte.autorMasSolicitado(mes);
+
+    }
+
+    public int editarPrestamoPreferencial(String folio) {
+
+        return daoReporte.editarPrestamo(folio);
+
+    }
+
+    public Libro libroMasPrestado(String mes) {
+
+        return daoReporte.libroMasPrestado(mes);
+
+    }
+
+    public Integer[] numLibrosDisponibles() {
+
+        return daoReporte.numLibrosDisponibles();
+
+    }
+
+    public Integer numLibrosPrestados(String mes) {
+
+        return daoReporte.numLibrosPrestados(mes);
+
+    }
+
+    public ArrayList<Libro> librosRegistrados(String mes) {
+
+        ArrayList<Libro> libros = daoReporte.numLibrosAgregados(mes);
+
+        return libros;
+
+    }
+
     // Faltan Para Convertir a Matriz, Para Llenar ComboBox
     public ArrayList<Autor> listarAutores() {
 
@@ -440,16 +507,16 @@ public class Controlador {
 
                 matriz[i][0] = libros.get(i).getIdLibro();
                 matriz[i][1] = libros.get(i).getFolio();
-                matriz[i][3] = libros.get(i).getTitulo();
-                matriz[i][4] = libros.get(i).getAutor();
-                matriz[i][5] = libros.get(i).getIsbn();
-                matriz[i][6] = libros.get(i).getEditorial();
-                matriz[i][7] = libros.get(i).getAnio();
-                matriz[i][8] = libros.get(i).getPais();
-                matriz[i][9] = libros.get(i).getEstante();
-                matriz[i][10] = libros.get(i).getSala();
-                matriz[i][11] = libros.get(i).getDescripcion();
-                matriz[i][12] = libros.get(i).getStatus();
+                matriz[i][2] = libros.get(i).getTitulo();
+                matriz[i][3] = libros.get(i).getAutor();
+                matriz[i][4] = libros.get(i).getIsbn();
+                matriz[i][5] = libros.get(i).getEditorial();
+                matriz[i][6] = libros.get(i).getAnio();
+                matriz[i][7] = libros.get(i).getPais();
+                matriz[i][8] = libros.get(i).getEstante();
+                matriz[i][9] = libros.get(i).getSala();
+                matriz[i][1] = libros.get(i).getDescripcion();
+                matriz[i][11] = libros.get(i).getStatus();
 
             }
 
@@ -534,4 +601,88 @@ public class Controlador {
 
     }
 
+    public void exportarDatos(String mes, Reporte reporte, Integer año) {
+
+        File file = new File("Reporte" + " " + mes + " " + año + ".txt");
+
+        try {
+
+            FileWriter fw = new FileWriter(file);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.write(reporte.toString());
+
+            fw.close();
+            pw.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+    }
+
+    public DataSourceImpl getDs() {
+        return ds;
+    }
+
+    public void setDs(DataSourceImpl ds) {
+        this.ds = ds;
+    }
+
+    public DAOAutorImpl getDaoAutor() {
+        return daoAutor;
+    }
+
+    public void setDaoAutor(DAOAutorImpl daoAutor) {
+        this.daoAutor = daoAutor;
+    }
+
+    public DAOEditorialImpl getDaoEditorial() {
+        return daoEditorial;
+    }
+
+    public void setDaoEditorial(DAOEditorialImpl daoEditorial) {
+        this.daoEditorial = daoEditorial;
+    }
+
+    public DAOLibroImpl getDaoLibro() {
+        return daoLibro;
+    }
+
+    public void setDaoLibro(DAOLibroImpl daoLibro) {
+        this.daoLibro = daoLibro;
+    }
+
+    public DAOPrestamoImpl getDaoPrestamo() {
+        return daoPrestamo;
+    }
+
+    public void setDaoPrestamo(DAOPrestamoImpl daoPrestamo) {
+        this.daoPrestamo = daoPrestamo;
+    }
+
+    public DAOUsuarioImpl getDaoUsuario() {
+        return daoUsuario;
+    }
+
+    public void setDaoUsuario(DAOUsuarioImpl daoUsuario) {
+        this.daoUsuario = daoUsuario;
+    }
+
+    public DAOReporteImpl getDaoReporte() {
+        return daoReporte;
+    }
+
+    public void setDaoReporte(DAOReporteImpl daoReporte) {
+        this.daoReporte = daoReporte;
+    }
+
+    public Object[][] getMatriz() {
+        return matriz;
+    }
+
+    public void setMatriz(Object[][] matriz) {
+        this.matriz = matriz;
+    }
+        
 }

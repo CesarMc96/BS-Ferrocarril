@@ -209,6 +209,11 @@ public class Seleccion extends JFrame {
             new Usuarios();
             this.setVisible(false);
         });
+        
+       btnReporte.addActionListener((ActionEvent e) -> {
+            new Reportes();
+            this.setVisible(false);
+        });
 
         //Panel arriba
         pnlTitulo = new JPanel();
