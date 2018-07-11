@@ -58,15 +58,27 @@ public class ModeloLibros extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "Nombre";
+                return "Folio";
             case 1:
-                return "Usuario";
+                return "Titulo";
             case 2:
-                return "ContraseÃ±a";
+                return "Autor";
             case 3:
-                return "Rol";
+                return "ISBN";
             case 4:
-                return "Acceso";
+                return "Editorial";
+            case 5 :
+                return "Año";
+            case 6 :
+                return "Pais";
+            case 7 :
+                return "Estante";
+            case 8 :
+                return "Sala";
+            case 9 :
+                return "Descripcion";
+            case 10 :
+                return "Status";
             default:
                 throw new AssertionError();
         }
