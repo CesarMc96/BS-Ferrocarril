@@ -7,6 +7,7 @@ import Modelo.Juego;
 import java.awt.Color;
 import java.awt.Frame;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,7 @@ public class JuegosDialog extends JDialog {
         da = f;
 
         initComponents();
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
     }
 
     @SuppressWarnings("unchecked")

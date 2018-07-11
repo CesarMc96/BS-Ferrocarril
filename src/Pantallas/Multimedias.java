@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,6 +49,8 @@ public class Multimedias extends JFrame {
         super.getContentPane().setBackground(Color.WHITE);
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
+        
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         Consulta = "Select multimedia.titulo, multimedia.autor, multimedia.anio, pais.nombre, compania.nombre, editorial.nombre, multimedia.formato, multimedia.copias from multimedia "
                 + " join  pais on pais_id = pais.id_pais"

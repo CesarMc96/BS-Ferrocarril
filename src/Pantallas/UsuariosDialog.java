@@ -8,6 +8,7 @@ import com.placeholder.PlaceHolder;
 import java.awt.Frame;
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,7 @@ public class UsuariosDialog extends JDialog {
         da = f;
 
         initComponents();
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
     }
 
     @SuppressWarnings("unchecked")

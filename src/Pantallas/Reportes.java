@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -64,6 +65,8 @@ public class Reportes extends JFrame {
         super.setSize(450, 400);
         super.setLayout(new BorderLayout());
         super.setLocationRelativeTo(null);
+        
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         lblTitulo = new JLabel(" PANTALLA REPORTES ");
         lblTitulo.setFont(new Font("", Font.BOLD, 22));

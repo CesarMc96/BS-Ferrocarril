@@ -3,6 +3,7 @@ package Pantallas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.TextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -31,6 +32,8 @@ public class AutorDialogNuevo extends JDialog {
         super.getContentPane().setBackground(Color.WHITE);
         super.setLocationRelativeTo(null);
         super.setLayout(new BorderLayout());
+        
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         pnlBotones = new JPanel();
         pnlBotones.setLayout(new BorderLayout());

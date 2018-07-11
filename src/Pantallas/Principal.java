@@ -44,6 +44,8 @@ public class Principal extends JFrame {
         pnlAbajo.setBackground(Color.WHITE);
         pnlAbajo.add(btnIngresar);
 
+        super.setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
+        
         super.add(pnlArriba, BorderLayout.NORTH);
         super.add(pnlEnmedio, BorderLayout.CENTER);
         super.add(pnlAbajo, BorderLayout.SOUTH);

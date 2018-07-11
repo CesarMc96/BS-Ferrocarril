@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,6 +48,8 @@ public class Usuarios extends JFrame {
         super.setTitle("BS - Ferrocarril");
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
+        
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
         Usuario = das.crearArreglo("Select * from usuario", "Usuario");

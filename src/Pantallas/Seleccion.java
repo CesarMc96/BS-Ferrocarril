@@ -172,6 +172,8 @@ public class Seleccion extends JFrame {
         pnlSeccion2.add(btnReporte);
         pnlSeccion2.add(btnBlanco1);
         pnlSeccion2.add(btnIzquierda);
+        
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         //Acciones
         btnDerecha.addActionListener((ActionEvent e) -> {

@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -40,6 +41,8 @@ public class Autores extends JFrame {
         super.setTitle("Autores");
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
+        
+        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
         Autor = das.crearArreglo("Select * from autor", "Autor");
