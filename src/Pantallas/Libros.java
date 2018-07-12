@@ -123,16 +123,7 @@ public class Libros extends JFrame {
 
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
-            udn.setTxtNombre("");
-            udn.setTxtTelefono("");
-            udn.setTxtApMaterno("");
-            udn.setTxtApPaterno("");
-            udn.setTxtDireccion("");
-            udn.setTxtCredencial("");
-            udn.setTxtCorreo("");
-            udn.agregarPH(variable);
-            udn.setVariable(variable);
-            udn.setVisible(true);
+            new LibrosDialog(Libros.this, "Agregar Libro");
         });
 
         btnModificar.addActionListener((ActionEvent e) -> {
@@ -141,7 +132,7 @@ public class Libros extends JFrame {
             int rowSelected = tblUsuario.getSelectedRow();
 
             if (rowSelected < 0) {
-                JOptionPane.showMessageDialog(null, "Seleccione el usuario a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seleccione el libro a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
             } else {
                 udn.setVariable(variable);
                 System.out.println(controlador.buscar(rowSelected).getIdLibro() + " Hola");
@@ -259,7 +250,7 @@ public class Libros extends JFrame {
             int rowSelected = tblUsuario.getSelectedRow();
 
             if (rowSelected < 0) {
-                JOptionPane.showMessageDialog(null, "Seleccione el usuario a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seleccione el libro a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
             } else {
                 udn.setVariable(variable);
      

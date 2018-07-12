@@ -249,6 +249,32 @@ public class DAOAutorImpl implements DAOAutor {
         return array;
 
     }
+    
+    public Integer getAutorID( String nombre, String apellidos) {
+		
+        Integer id = 0;
+
+        ResultSet rs = (ResultSet) ds.ejecutarConsulta("SELECT id_autor FROM autor WHERE nombre = '" + nombre
+                + "' AND apellidos = '" + apellidos + "'");
+
+        try {
+
+            while (rs.next()) {
+
+                id = rs.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+
+            e.getMessage();
+            e.printStackTrace();
+
+        }
+
+        return id;
+		
+	}
 
     public DataSourceImpl getDs() {
         return ds;

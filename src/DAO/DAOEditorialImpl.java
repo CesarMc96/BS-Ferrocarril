@@ -272,6 +272,29 @@ public class DAOEditorialImpl implements DAOEditorial {
 		
 	}
 	
-	
+    public Integer getEditorialID(String nombre) {
+
+        Integer id = 0;
+
+        ResultSet rs = (ResultSet) ds.ejecutarConsulta("SELECT id_editorial FROM editorial WHERE nombre = '" + nombre + "'");
+
+        try {
+
+            while (rs.next()) {
+
+                id = rs.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+
+            e.getMessage();
+            e.printStackTrace();
+
+        }
+
+        return id;
+
+    }
 
 }
