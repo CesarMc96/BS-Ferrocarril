@@ -1,11 +1,10 @@
-
 package Modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Reporte implements Serializable {
-    
+
     private Integer idReporte;
     private Integer numLibrosPrestados;
     private Autor autorMasSolicitado;
@@ -13,10 +12,10 @@ public class Reporte implements Serializable {
     private Integer[] numLibrosDisponibles;
     private Integer numLibrosAgregados;
     private ArrayList<Libro> librosAgregados;
-    
+
     public Reporte() {
-		
-	}
+
+    }
 
     public Reporte(Integer idReporte, Integer numLibrosPrestados, Autor autorMasSolicitado, Libro libroMasPrestado,
             Integer[] numLibrosDisponibles, Integer numLibrosAgregados) {
@@ -42,13 +41,13 @@ public class Reporte implements Serializable {
 
     @Override
     public String toString() {
-        return " Reporte : " + " Numero de Libros Prestados : " + this.numLibrosPrestados + ". "
-                + "Autor Mas Solicitado : " + this.autorMasSolicitado + ". "
-                + "Libro Mas Prestado : " + this.libroMasPrestado + ". \n\n"
-                + "Numero de Libros Disponibles : " + this.numLibrosDisponibles[0] + ". "
-                + "Numero de Libros No Disponibles : " + this.numLibrosDisponibles[1] + ". "
-                + "Numero de Libros Agregados : " + this.numLibrosAgregados + ". \n\n "
-                + "Lista de Libros Agregados : \n\n " + this.librosAgregados + ". \n ";
+        return "Numero de Libros Prestados: " + this.numLibrosPrestados + ".\n "
+                + "Autor Mas Solicitado: " + this.autorMasSolicitado + ".\n "
+                + "Libro Mas Prestado: " + this.libroMasPrestado + ". \n\n"
+                + "Numero de Libros Disponibles: " + this.numLibrosDisponibles[0] + ".\n "
+                + "Numero de Libros No Disponibles: " + this.numLibrosDisponibles[1] + ".\n "
+                + "Numero de Libros Agregados: " + this.numLibrosAgregados + ". \n "
+                + "Lista de Libros Agregados: " + this.librosAgregados + ". \n ";
     }
 
     public Integer getIdReporte() {

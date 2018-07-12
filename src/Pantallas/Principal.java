@@ -54,7 +54,7 @@ public class Principal extends JFrame {
         btnIngresar.addActionListener((ActionEvent e) -> {
             Seleccion s = new Seleccion();
             s.setVisible(true);
-            this.setVisible(false);
+            this.dispose();
         });
     }
 

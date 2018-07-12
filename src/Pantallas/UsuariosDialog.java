@@ -23,10 +23,12 @@ public class UsuariosDialog extends JDialog {
         super(f, true);
         super.setLocationRelativeTo(null);
         super.setTitle("BS - Ferrocarril");
+        super.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
         da = f;
 
         initComponents();
-        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
+        this.setLocationRelativeTo(null);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -167,7 +169,7 @@ public class UsuariosDialog extends JDialog {
                 "¿Seguro?",
                 JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+            this.dispose();
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 

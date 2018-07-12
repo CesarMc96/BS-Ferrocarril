@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -105,7 +104,7 @@ public class Seleccion extends JFrame {
         btnDerecha.setBorder(null);
         btnDerecha.setBackground(Color.WHITE);
         btnDerecha.setToolTipText("Siguiente");
-        
+
         pnlSeccion = new JPanel();
         pnlSeccion.setBackground(Color.WHITE);
 
@@ -125,7 +124,7 @@ public class Seleccion extends JFrame {
 
         reporte = new ImageIcon(getClass().getResource("/Imagenes/reporte.png"));
         reporteEs = new ImageIcon(reporte.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
-        
+
         blanco = new ImageIcon(getClass().getResource("/Imagenes/Blanco.png"));
         blancoEs = new ImageIcon(blanco.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
 
@@ -140,19 +139,19 @@ public class Seleccion extends JFrame {
         btnPrestamo.setBorder(null);
         btnPrestamo.setBackground(Color.WHITE);
         btnPrestamo.setToolTipText("Prestamo");
-        
+
         btnReporte = new JButton();
         btnReporte.setIcon(reporteEs);
         btnReporte.setBorder(null);
         btnReporte.setBackground(Color.WHITE);
         btnReporte.setToolTipText("Reporte");
-        
+
         btnIzquierda = new JButton();
         btnIzquierda.setIcon(izquierdaEs);
         btnIzquierda.setBorder(null);
         btnIzquierda.setBackground(Color.WHITE);
         btnIzquierda.setToolTipText("Atras");
-        
+
         btnBlanco = new JButton();
         btnBlanco.setIcon(blancoEs);
         btnBlanco.setBorder(null);
@@ -172,8 +171,8 @@ public class Seleccion extends JFrame {
         pnlSeccion2.add(btnReporte);
         pnlSeccion2.add(btnBlanco1);
         pnlSeccion2.add(btnIzquierda);
-        
-        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
+
+        super.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         //Acciones
         btnDerecha.addActionListener((ActionEvent e) -> {
@@ -206,14 +205,14 @@ public class Seleccion extends JFrame {
             new Multimedias();
             this.setVisible(false);
         });
-        
+
         btnUsuario.addActionListener((ActionEvent e) -> {
             new Usuarios();
             this.setVisible(false);
         });
-        
-       btnReporte.addActionListener((ActionEvent e) -> {
-            new Reportes();
+
+        btnReporte.addActionListener((ActionEvent e) -> {
+            new Reporte();
             this.setVisible(false);
         });
 

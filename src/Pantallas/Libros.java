@@ -1,12 +1,9 @@
 package Pantallas;
 
 import BD.ControladorLibro;
-import BD.ControladorUsuario;
 import BD.DataSourcePostgreSQL;
 import BD.ModeloLibros;
-import BD.ModeloUsuario;
 import Modelo.Libro;
-import Modelo.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -123,7 +120,7 @@ public class Libros extends JFrame {
 
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
-            new LibrosDialog(Libros.this, "Agregar Libro");
+            new LibrosDialog(this, "Agregar Libro");
         });
 
         btnModificar.addActionListener((ActionEvent e) -> {

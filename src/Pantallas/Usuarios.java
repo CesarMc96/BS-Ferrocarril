@@ -48,8 +48,7 @@ public class Usuarios extends JFrame {
         super.setTitle("BS - Ferrocarril");
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
-        
-        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
+        super.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
         Usuario = das.crearArreglo("Select * from usuario", "Usuario");
@@ -234,7 +233,7 @@ public class Usuarios extends JFrame {
         });
 
         btnAceptar.addActionListener((ActionEvent e) -> {
-            this.setVisible(false);
+            this.dispose();
             new Seleccion();
         });
 

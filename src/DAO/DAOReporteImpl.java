@@ -17,9 +17,9 @@ import Modelo.Sala;
 import Modelo.Status;
 
 public class DAOReporteImpl implements DAOReporte {
-	
-	private DataSourceImpl ds;
-	private Integer anio;
+
+    private DataSourceImpl ds;
+    private Integer anio;
 
     public DAOReporteImpl() {
 
@@ -241,7 +241,7 @@ public class DAOReporteImpl implements DAOReporte {
         numeroMes = getMes(mes);
 
         rs = (ResultSet) ds.ejecutarConsulta("Select t1.folio, t1.titulo, t2.nombre, t2.apellidos, t1.isbn, "
-                + "t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From libro t1 "
+                + "t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From libro t1 "
                 + "inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial inner join pais t4 "
                 + "on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join status t6 on status_id = id_status "
                 + "Where t1.id_libro = ( Select libro_id From prestamo_preferencial Where num_prestamo = "
@@ -316,7 +316,7 @@ public class DAOReporteImpl implements DAOReporte {
         ArrayList<Libro> libros = new ArrayList<>();
         Integer numMes = getMes(mes);
 
-        sentencia = "SELECT t1.folio, t1.titulo, t2.nombre, t2.apellidos, t1.isbn, t3.nombre, t1.a�o, t4.nombre, "
+        sentencia = "SELECT t1.folio, t1.titulo, t2.nombre, t2.apellidos, t1.isbn, t3.nombre, t1.anio, t4.nombre, "
                 + "t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion FROM 	libro t1 INNER JOIN autor t2 ON "
                 + "autor_id = id_autor INNER JOIN editorial t3 ON editorial_id = id_editorial INNER JOIN pais t4  ON "
                 + "pais_id = id_pais INNER JOIN estante t5 ON estante_id = id_estante INNER JOIN status t6 ON "

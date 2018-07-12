@@ -5,11 +5,10 @@ import Modelo.*;
 import java.awt.Color;
 import java.awt.Frame;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-public class MultimediaDialog extends JDialog {
+public class LibroDialog extends JDialog {
 
     private int indice;
     private int opcion;
@@ -19,11 +18,10 @@ public class MultimediaDialog extends JDialog {
     private ArrayList<Compañia> array1;
     private ArrayList<Editorial> array2;
 
-    public MultimediaDialog(Frame f) {
+    public LibroDialog(Frame f) {
         super(f, true);
         super.setLocationRelativeTo(null);
         super.setTitle("BS - Ferrocarril");
-        super.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
         da = f;
 
         initComponents();
@@ -49,7 +47,7 @@ public class MultimediaDialog extends JDialog {
         txtAnio = new javax.swing.JTextField();
         ListaEditorial = new javax.swing.JComboBox<>();
         ListaPais = new javax.swing.JComboBox<>();
-        ListaCompañia = new javax.swing.JComboBox<>();
+        ListaAutor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtFormato = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -64,9 +62,9 @@ public class MultimediaDialog extends JDialog {
         jPanel1.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel2.setText("MULTIMEDIA");
+        jLabel2.setText("LIBROS");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(240, 10, 220, 60);
+        jLabel2.setBounds(300, 20, 130, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel3.setLabelFor(txtTitulo);
@@ -95,15 +93,15 @@ public class MultimediaDialog extends JDialog {
         ListaCopias.setBackground(Color.white);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel6.setText("Año:");
+        jLabel6.setText("Folio:");
         jLabel6.setToolTipText("");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(260, 260, 30, 19);
+        jLabel6.setBounds(260, 260, 50, 19);
         jPanel1.add(txtAutor);
         txtAutor.setBounds(310, 180, 150, 22);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel7.setText("Autor:");
+        jLabel7.setText("Folio:");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(260, 180, 50, 20);
 
@@ -125,16 +123,16 @@ public class MultimediaDialog extends JDialog {
         jPanel1.add(btnCancelar);
         btnCancelar.setBounds(380, 350, 90, 25);
         jPanel1.add(txtAnio);
-        txtAnio.setBounds(310, 260, 60, 22);
+        txtAnio.setBounds(390, 130, 60, 22);
 
         jPanel1.add(ListaEditorial);
         ListaEditorial.setBounds(350, 90, 100, 22);
 
         jPanel1.add(ListaPais);
-        ListaPais.setBounds(70, 130, 90, 22);
+        ListaPais.setBounds(70, 130, 100, 22);
 
-        jPanel1.add(ListaCompañia);
-        ListaCompañia.setBounds(320, 130, 130, 22);
+        jPanel1.add(ListaAutor);
+        ListaAutor.setBounds(250, 130, 120, 22);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel5.setText("Pais:");
@@ -146,24 +144,24 @@ public class MultimediaDialog extends JDialog {
         txtFormato.setBounds(310, 220, 150, 22);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel8.setText("Compañia:");
+        jLabel8.setText("Autor:");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(240, 130, 80, 20);
+        jLabel8.setBounds(200, 130, 50, 20);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel9.setText("Formato:");
+        jLabel9.setText("ISBN:");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(240, 220, 70, 19);
+        jLabel9.setBounds(260, 220, 40, 19);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multimedia.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/libro.png"))); // NOI18N
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 50, 550, 460);
+        jLabel1.setBounds(-70, 150, 330, 280);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +178,7 @@ public class MultimediaDialog extends JDialog {
                 "¿Seguro?",
                 JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
-            this.dispose();
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -194,7 +192,7 @@ public class MultimediaDialog extends JDialog {
                 DataSourcePostgreSQL d = new DataSourcePostgreSQL();
 
                 String consulta = "INSERT INTO multimedia(titulo, autor, anio, pais_id, compania_id, editorial_id, formato, copias) VALUES ( " + "'" + txtTitulo.getText() + "', '" + txtAutor.getText() + "', '" + txtAnio.getText() + "', '" + (ListaPais.getSelectedIndex() + 1) + "', '"
-                        + (ListaCompañia.getSelectedIndex() + 1) + "', '" + (ListaEditorial.getSelectedIndex() + 1) + "', '" + txtFormato.getText() + "', '" + (ListaCopias.getSelectedIndex() + 1) + "')";
+                        + (ListaAutor.getSelectedIndex() + 1) + "', '" + (ListaEditorial.getSelectedIndex() + 1) + "', '" + txtFormato.getText() + "', '" + (ListaCopias.getSelectedIndex() + 1) + "')";
 
                 d.ejecutarActualizacion(consulta);
 
@@ -208,7 +206,7 @@ public class MultimediaDialog extends JDialog {
                 DataSourcePostgreSQL d = new DataSourcePostgreSQL();
 
                 String consulta = "UPDATE multimedia SET titulo= '" + txtTitulo.getText() + "', autor='" + txtAutor.getText() + "', anio='" + txtAnio.getText()
-                        + "', pais_id='" + (ListaPais.getSelectedIndex() + 1) + "', compania_id='" + (ListaCompañia.getSelectedIndex() + 1) + "', editorial_id='" + (ListaEditorial.getSelectedIndex() + 1)
+                        + "', pais_id='" + (ListaPais.getSelectedIndex() + 1) + "', compania_id='" + (ListaAutor.getSelectedIndex() + 1) + "', editorial_id='" + (ListaEditorial.getSelectedIndex() + 1)
                         + "', formato='" + txtFormato.getText() + "', copias='" + (ListaCopias.getSelectedIndex() + 1) + "' WHERE id_multimedia = " + indice;
 
                 d.ejecutarActualizacion(consulta);
@@ -255,14 +253,14 @@ public class MultimediaDialog extends JDialog {
         ListaPais.setSelectedIndex(hh);
     }
 
-    public void llenarArrayCompañia(ArrayList arreglo1, Integer hhh) {
+    public void llenarArrayAutor(ArrayList arreglo1, Integer hhh) {
         array1 = arreglo1;
 
         for (int i = 0; i < array1.size(); i++) {
-            ListaCompañia.addItem(array1.get(i).toString());
+            ListaAutor.addItem(array1.get(i).toString());
         }
 
-        ListaCompañia.setSelectedIndex(hhh);
+        ListaAutor.setSelectedIndex(hhh);
     }
 
     public void llenarArrayEditorial(ArrayList arreglo2, Integer ht) {
@@ -277,7 +275,7 @@ public class MultimediaDialog extends JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ListaCompañia;
+    private javax.swing.JComboBox<String> ListaAutor;
     private javax.swing.JComboBox<String> ListaCopias;
     private javax.swing.JComboBox<String> ListaEditorial;
     private javax.swing.JComboBox<String> ListaPais;

@@ -47,10 +47,9 @@ public class Multimedias extends JFrame {
         super.setTitle("BS - Ferrocarril");
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
+        super.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        
-        setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         Consulta = "Select multimedia.titulo, multimedia.autor, multimedia.anio, pais.nombre, compania.nombre, editorial.nombre, multimedia.formato, multimedia.copias from multimedia "
                 + " join  pais on pais_id = pais.id_pais"
@@ -114,7 +113,7 @@ public class Multimedias extends JFrame {
         });
 
         btnAceptar.addActionListener((ActionEvent e) -> {
-            this.setVisible(false);
+            this.dispose();
             new Seleccion();
         });
 
