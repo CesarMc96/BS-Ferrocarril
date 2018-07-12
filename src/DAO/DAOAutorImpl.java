@@ -219,6 +219,7 @@ public class DAOAutorImpl implements DAOAutor {
 
         ResultSet rs;
         Statement st = null;
+        ds.iniciarConexion();
         String sentencia;
 
         sentencia = "SELECT nombre, apellidos FROM autor ORDER BY nombre ASC";
@@ -238,6 +239,7 @@ public class DAOAutorImpl implements DAOAutor {
             for (int i = 0; i < autores.size(); i++) {
 
                 array[i] = autores.get(i);
+                System.out.println(array[i]);
 
             }
 
@@ -245,7 +247,9 @@ public class DAOAutorImpl implements DAOAutor {
 
             e.printStackTrace();
         }
-
+        
+        ds.cerrarConexion();
+        
         return array;
 
     }

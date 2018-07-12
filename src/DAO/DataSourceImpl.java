@@ -72,6 +72,7 @@ public class DataSourceImpl {
 
             e.getMessage();
             e.printStackTrace();
+            cerrarConexion();
 
         }
 

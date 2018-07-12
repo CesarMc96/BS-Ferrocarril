@@ -30,7 +30,8 @@ public class Prestamo {
         this.accion = accion;
     }
 
-    public Prestamo(Date fechaPrestamo, Date fechaDevolucion, Integer numeroRenovacion, String titulo, String autor, String editorial, String nombreUsuario, String numCredencial, String observaciones, String accion) {
+    public Prestamo(Date fechaPrestamo, Date fechaDevolucion, Integer numeroRenovacion, String titulo, String autor, 
+            String editorial, String nombreUsuario, String numCredencial, String observaciones, String accion) {
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
         this.numeroRenovacion = numeroRenovacion;

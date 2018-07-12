@@ -212,6 +212,11 @@ public class Seleccion extends JFrame {
             this.setVisible(false);
         });
         
+        btnPrestamo.addActionListener((ActionEvent e) -> {
+            new Prestamos();
+            this.setVisible(false);
+        });
+        
        btnReporte.addActionListener((ActionEvent e) -> {
             new Reportes();
             this.setVisible(false);
