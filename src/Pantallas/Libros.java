@@ -52,7 +52,7 @@ public class Libros extends JFrame {
         setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        libros = das.crearArreglo("Select * from libro", "Libro");
+        libros = das.crearArreglo("Select folio, titulo, autor_id, isbn, editorial_id, anio, pais_id, estante_id, sala_id, descripcion, status_id From libro", "Libro");
 
         controlador = new ControladorLibro(libros);
         modelo = new ModeloLibros(controlador.getDb());

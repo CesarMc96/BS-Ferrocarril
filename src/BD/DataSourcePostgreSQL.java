@@ -8,6 +8,7 @@ import Modelo.Juego;
 import Modelo.Libro;
 import Modelo.Multimedia;
 import Modelo.Pais;
+import Modelo.Prestamo;
 import Modelo.Sala;
 import Modelo.Status;
 import Modelo.Usuario;
@@ -132,6 +133,13 @@ public class DataSourcePostgreSQL implements DataSource {
                 while (rs.next()) {
                     arreglo.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
                             rs.getString(6), rs.getString(7), rs.getString(8), rs.getDate(9)));
+                }
+            }
+            
+            if ("Prestamo".equals(tipo)) {
+                while (rs.next()) {
+                    arreglo.add( new Prestamo(rs.getDate(1), rs.getDate(2), rs.getInt(3), rs.getString(4), rs.getString(5), 
+                            rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10) ) );
                 }
             }
 

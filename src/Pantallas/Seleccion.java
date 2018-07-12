@@ -216,6 +216,11 @@ public class Seleccion extends JFrame {
             this.setVisible(false);
         });
 
+        btnPrestamo.addActionListener((ActionEvent e) -> {
+            new Prestamos();
+            this.setVisible(false);
+        });
+
         //Panel arriba
         pnlTitulo = new JPanel();
         pnlTitulo.setLayout(new BorderLayout());
