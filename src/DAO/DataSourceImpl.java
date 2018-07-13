@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 public class DataSourceImpl {
 
     private String usuario = "postgres";
-    private String contrasena = "toor";
-    private String puerto = "5432";
+    private String contrasena = "postgres";
+    private String puerto = "5433";
     private String protocolo = "jdbc:postgresql://localhost:" + puerto + "/BS-Ferrocarril"; //Falta la Base de Datos
     private Connection conexion = null;
 
