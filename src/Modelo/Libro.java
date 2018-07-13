@@ -30,7 +30,8 @@ public class Libro {
         this.status = status;
     }
 
-    public Libro(String folio, String titulo, Autor autor, String isbn, Editorial editorial, Integer año, Pais pais, Estante estante, Sala sala, String descripcion, Status status) {
+    public Libro(String folio, String titulo, Autor autor, String isbn, Editorial editorial, Integer año, Pais pais,
+            Estante estante, Sala sala, String descripcion, Status status) {
         this.folio = folio;
         this.titulo = titulo;
         this.autor = autor;
@@ -45,7 +46,10 @@ public class Libro {
     }
 
     public Libro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Libro( String titulo ) {
+        this.titulo = titulo;
     }
 
     @Override

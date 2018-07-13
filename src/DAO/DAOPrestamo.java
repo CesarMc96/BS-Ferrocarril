@@ -8,7 +8,7 @@ public interface DAOPrestamo {
 	
 	Prestamo buscarPrestamo( Integer numeroPrestamo );
 	
-	Prestamo buscarPrestamoUsuario( Integer numUsuario );
+	Prestamo buscarPrestamoUsuario( String numUsuario );
 	
 	Prestamo buscarPrestamoLibro( String titulo );
 	

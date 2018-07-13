@@ -250,7 +250,7 @@ public class DAOEditorialImpl implements DAOEditorial {
 			
 			while ( rs.next() ) {
 				
-				editoriales.add( new Editorial( rs.getInt(1), rs.getString(2) ) );
+				editoriales.add( new Editorial( rs.getString(1) ) );
 				
 			}
 			

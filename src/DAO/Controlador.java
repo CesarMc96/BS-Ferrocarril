@@ -167,6 +167,12 @@ public class Controlador {
         return daoLibro.buscarLibro(folio);
 
     }
+    
+    public ArrayList<Libro> buscarLibros(String titulo) {
+        
+        return daoLibro.buscarLibroTitulo(titulo);
+        
+    }
 
     public Libro buscarLibro(String nombre, String apellido) {
 
@@ -252,10 +258,16 @@ public class Controlador {
 
     }
 
-    public Prestamo buscarPrestamoUsuario(Integer numUsuario) {
+    public Prestamo buscarPrestamoUsuario(String numUsuario) {
 
         return daoPrestamo.buscarPrestamoUsuario(numUsuario);
 
+    }
+    
+    public ArrayList<Prestamo> buscarPrestamoNumUsuario( String numUsuario ) {
+        
+        return daoPrestamo.buscarPrestamoNumUsuario(numUsuario);
+        
     }
 
     public int editarPrestamo(Integer numeroPrestamo, Prestamo prestamo) {
@@ -310,6 +322,12 @@ public class Controlador {
 
         return daoPrestamo.eliminarPrestamoNumUsuario(nombre, apPat, apMat);
 
+    }
+    
+    public int eliminarPrestamoNumUsuario( String numUsuario ) {
+        
+        return daoPrestamo.eliminarPrestamoNumUsuario(numUsuario);
+        
     }
 
     public int eliminarPrestamoPorTitulo(String titulo) {
@@ -508,24 +526,23 @@ public class Controlador {
 
         ArrayList<Libro> libros = listarLibros();
 
-        matriz = new Object[libros.size()][12];
+        matriz = new Object[libros.size()][11];
 
         for (int i = 0; i < matriz.length; i++) {
 
             for (int j = 0; j < matriz[i].length; j++) {
 
-                matriz[i][0] = libros.get(i).getIdLibro();
-                matriz[i][1] = libros.get(i).getFolio();
-                matriz[i][2] = libros.get(i).getTitulo();
-                matriz[i][3] = libros.get(i).getAutor();
-                matriz[i][4] = libros.get(i).getIsbn();
-                matriz[i][5] = libros.get(i).getEditorial();
-                matriz[i][6] = libros.get(i).getAnio();
-                matriz[i][7] = libros.get(i).getPais();
-                matriz[i][8] = libros.get(i).getEstante();
-                matriz[i][9] = libros.get(i).getSala();
-                matriz[i][1] = libros.get(i).getDescripcion();
-                matriz[i][11] = libros.get(i).getStatus();
+                matriz[i][0] = libros.get(i).getFolio();
+                matriz[i][1] = libros.get(i).getTitulo();
+                matriz[i][2] = libros.get(i).getAutor();
+                matriz[i][3] = libros.get(i).getIsbn();
+                matriz[i][4] = libros.get(i).getEditorial();
+                matriz[i][5] = libros.get(i).getAnio();
+                matriz[i][6] = libros.get(i).getPais();
+                matriz[i][7] = libros.get(i).getEstante();
+                matriz[i][8] = libros.get(i).getSala();
+                matriz[i][9] = libros.get(i).getDescripcion();
+                matriz[i][10] = libros.get(i).getStatus();
 
             }
 
@@ -534,6 +551,35 @@ public class Controlador {
         return matriz;
 
     }
+    
+    public Object[][] toMatrizLibros( ArrayList<Libro> libros ) {
+
+        matriz = new Object[libros.size()][11];
+
+        for (int i = 0; i < matriz.length; i++) {
+
+            for (int j = 0; j < matriz[i].length; j++) {
+
+                matriz[i][0] = libros.get(i).getFolio();
+                matriz[i][1] = libros.get(i).getTitulo();
+                matriz[i][2] = libros.get(i).getAutor();
+                matriz[i][3] = libros.get(i).getIsbn();
+                matriz[i][4] = libros.get(i).getEditorial();
+                matriz[i][5] = libros.get(i).getAnio();
+                matriz[i][6] = libros.get(i).getPais();
+                matriz[i][7] = libros.get(i).getEstante();
+                matriz[i][8] = libros.get(i).getSala();
+                matriz[i][9] = libros.get(i).getDescripcion();
+                matriz[i][10] = libros.get(i).getStatus();
+
+            }
+
+        }
+
+        return matriz;
+
+    }
+
 
     public Object[][] toMatrizPrestamos() {
 
@@ -544,18 +590,17 @@ public class Controlador {
         for (int i = 0; i < matriz.length; i++) {
 
             for (int j = 0; j < matriz[i].length; j++) {
-
-                matriz[i][0] = prestamos.get(i).getIdPrestamo();
-                matriz[i][1] = prestamos.get(i).getFechaPrestamo();
-                matriz[i][3] = prestamos.get(i).getFechaDevolucion();
-                matriz[i][4] = prestamos.get(i).getNumeroRenovacion();
-                matriz[i][5] = prestamos.get(i).getTitulo();
-                matriz[i][6] = prestamos.get(i).getAutor();
-                matriz[i][7] = prestamos.get(i).getEditorial();
-                matriz[i][8] = prestamos.get(i).getNombreUsuario();
-                matriz[i][9] = prestamos.get(i).getNumCredencial();
-                matriz[i][10] = prestamos.get(i).getObservaciones();
-                matriz[i][11] = prestamos.get(i).getAccion();
+                
+                matriz[i][0] = prestamos.get(i).getFechaPrestamo();
+                matriz[i][1] = prestamos.get(i).getFechaDevolucion();
+                matriz[i][2] = prestamos.get(i).getNumeroRenovacion();
+                matriz[i][3] = prestamos.get(i).getTitulo();
+                matriz[i][4] = prestamos.get(i).getAutor();
+                matriz[i][5] = prestamos.get(i).getEditorial();
+                matriz[i][6] = prestamos.get(i).getNombreUsuario();
+                matriz[i][7] = prestamos.get(i).getNumCredencial();
+                matriz[i][8] = prestamos.get(i).getObservaciones();
+                matriz[i][9] = prestamos.get(i).getAccion();
 
             }
 
@@ -565,6 +610,33 @@ public class Controlador {
 
     }
 
+    public Object[][] toMatrizPrestamos( ArrayList<Prestamo> prestamos ) {
+
+        matriz = new Object[prestamos.size()][12];
+
+        for (int i = 0; i < matriz.length; i++) {
+
+            for (int j = 0; j < matriz[i].length; j++) {
+                
+                matriz[i][0] = prestamos.get(i).getFechaPrestamo();
+                matriz[i][1] = prestamos.get(i).getFechaDevolucion();
+                matriz[i][2] = prestamos.get(i).getNumeroRenovacion();
+                matriz[i][3] = prestamos.get(i).getTitulo();
+                matriz[i][4] = prestamos.get(i).getAutor();
+                matriz[i][5] = prestamos.get(i).getEditorial();
+                matriz[i][6] = prestamos.get(i).getNombreUsuario();
+                matriz[i][7] = prestamos.get(i).getNumCredencial();
+                matriz[i][8] = prestamos.get(i).getObservaciones();
+                matriz[i][9] = prestamos.get(i).getAccion();
+
+            }
+
+        }
+
+        return matriz;
+
+    }
+    
     public Object[][] toMatrizUsuarios() {
 
         ArrayList<Usuario> usuarios = listarUsuarios();
@@ -604,6 +676,14 @@ public class Controlador {
 
         return arreglo;
 
+    }
+    
+    public Object[] librosToArray() {
+        
+        Object[] array = daoLibro.librosToArray();
+        
+        return array;
+        
     }
 
     // Falta Convertir a Array las Opciones de JComboBox
@@ -697,6 +777,12 @@ public class Controlador {
 
     }
 
+    public Integer getLibroID( String titulo ) {
+        
+        return daoLibro.getLibroID(titulo);
+        
+    }
+    
     public Integer getAutorID(String nombre, String apellidos) {
 
         return daoAutor.getAutorID(nombre, apellidos);

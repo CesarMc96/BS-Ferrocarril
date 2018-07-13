@@ -31,11 +31,11 @@ public class DAOLibroImpl implements DAOLibro {
 		Statement st = null;
 		String sentencia;
 		
-		sentencia = "Select t1.id_multimedia, t1.titulo, t1.autor, t1.anio, t2.pais, t3."
-                        + ", t2.nombre, t2.apellidos, t1.isbn, t3.nombre, t1.año, t4.nombre," +
-		"t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From  libro t1 inner join autor t2 on " +
-		"autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial inner join pais t4  on pais_id = id_pais " + 
-		"inner join estante t5 on estante_id = id_estante inner join status t6 on status_id = id_status ";
+		sentencia = "Select t1.folio, t1.titulo, t2.nombre, t2.apellidos, t1.isbn, t3.nombre, " +
+                        "t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " +
+                        "libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on " + 
+                        "editorial_id = id_editorial inner join pais t4  on pais_id = id_pais inner join estante t5 " +
+                        "on estante_id = id_estante inner join status t6 on status_id = id_status";
 		
 		rs = (ResultSet) ds.ejecutarConsulta(sentencia);
 		
@@ -43,10 +43,10 @@ public class DAOLibroImpl implements DAOLibro {
 			
 			while ( rs.next() ) {
 				
-				libros.add( new Libro( rs.getInt(1), rs.getString(2), rs.getString(3), new Autor( rs.getString(4), rs.getString(5) ),
-						rs.getString(6), new Editorial( rs.getString(7) ), rs.getInt(8), new Pais( rs.getString(9) ),
-						new Estante( rs.getInt(10), rs.getString(11) ),  new Sala( rs.getInt(12) ), rs.getString(13), 
-						new Status( rs.getString(14) ) ) );
+				libros.add( new Libro( rs.getString(1), rs.getString(2), new Autor(rs.getString(3), 
+                                        rs.getString(4)), rs.getString(5), new Editorial(rs.getString(6)), rs.getInt(7), 
+                                        new Pais(rs.getString(8)), new Estante(rs.getInt(9), rs.getString(10)), new Sala(rs.getString(11)), 
+                                        rs.getString(12), new Status(rs.getString(13) ) ) );
 				
 				
 			}
@@ -69,7 +69,7 @@ public class DAOLibroImpl implements DAOLibro {
 		this.ds.iniciarConexion();
 		
 		// ----------------------------------
-		registro = "INSERT INTO libro ( folio, titulo, autor_id, isbn, editorial_id, a�o, pais_id, estante_id, sala_id, " +
+		registro = "INSERT INTO libro ( folio, titulo, autor_id, isbn, editorial_id, anio, pais_id, estante_id, sala_id, " +
 		"descripcion, status_id ) " +
 		" VALUES ( '" + libro.getFolio() + "', '" +
 				libro.getTitulo() + "', " +
@@ -96,7 +96,7 @@ public class DAOLibroImpl implements DAOLibro {
 
 		this.ds.iniciarConexion();
 		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_libro, t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-		"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " +
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " +
 		" libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join status t6 on " +
 		"status_id = id_status WHERE t1.id_libro = " + idLibro );
@@ -137,11 +137,12 @@ public class DAOLibroImpl implements DAOLibro {
 	public Libro buscarLibro(String folio) {
 
 		this.ds.iniciarConexion();
-		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_libro, t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-				"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " +
-				" libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
-				"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join status t6 on " +
-				"status_id = id_status WHERE t1.folio = '" + folio + "'" );
+		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_libro, t1.folio, t1.titulo," +
+                        " t2.nombre, t2.apellidos, t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, " +
+                        "t1.sala_id, t1.descripcion, t6.descripcion From libro t1 inner join autor t2 on " +
+                        "autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial inner join pais t4 " +
+                        "on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " +
+                        "status t6 on status_id = id_status WHERE t1.folio = '" + folio + "'" );
 		
 		Libro nuevoLibro = new Libro();
 		
@@ -181,7 +182,7 @@ public class DAOLibroImpl implements DAOLibro {
 
 		this.ds.iniciarConexion();
 		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_libro, t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-				"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " +
+				"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " +
 				" libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 				"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join status t6 on " +
 				"status_id = id_status WHERE t1.titulo = '" + titulo + "'" );
@@ -223,7 +224,7 @@ public class DAOLibroImpl implements DAOLibro {
 		
 		this.ds.iniciarConexion();
 		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_libro, t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-		"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
 		"libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " + 
 		"status t6 on status_id = id_status Where ( t2.nombre = '" + nombre + "' ) or ( t2.apellidos = '" + apellido + "') or " + 
@@ -270,7 +271,7 @@ public class DAOLibroImpl implements DAOLibro {
 		String update = null;
 		
 		rs = (ResultSet) ds.ejecutarConsulta("Select t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-		"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
 		"libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " + 
 		"status t6 on status_id = id_status Where t1.id_libro = " + idLibro );
@@ -297,7 +298,7 @@ public class DAOLibroImpl implements DAOLibro {
 				+ "' autor_id = '" + libro.getAutor().getIdAutor()
 				+ "' isbn = '" + libro.getIsbn()
 				+ "' editorial_id = " + libro.getEditorial().getIdEditorial()
-				+ " a�o = " + libro.getAnio()
+				+ " anio = " + libro.getAnio()
 				+ " pais_id = " + libro.getPais().getIdPais()
 				+ " estante_id = " + libro.getEstante().getIdEstante()
 				+ " sala_id = " + libro.getSala().getIdSala()
@@ -321,7 +322,7 @@ public class DAOLibroImpl implements DAOLibro {
 		String update = null;
 		
 		rs = (ResultSet) ds.ejecutarConsulta("Select t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-		"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
 		"libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " + 
 		"status t6 on status_id = id_status Where t1.folio = '" + folio + "'" );
@@ -348,7 +349,7 @@ public class DAOLibroImpl implements DAOLibro {
 				+ "' autor_id = '" + libro.getAutor().getIdAutor()
 				+ "' isbn = '" + libro.getIsbn()
 				+ "' editorial_id = " + libro.getEditorial().getIdEditorial()
-				+ " a�o = " + libro.getAnio()
+				+ " anio = " + libro.getAnio()
 				+ " pais_id = " + libro.getPais().getIdPais()
 				+ " estante_id = " + libro.getEstante().getIdEstante()
 				+ " sala_id = " + libro.getSala().getIdSala()
@@ -372,7 +373,7 @@ public class DAOLibroImpl implements DAOLibro {
 		String update = null;
 		
 		rs = (ResultSet) ds.ejecutarConsulta("Select t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-		"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
 		"libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " + 
 		"status t6 on status_id = id_status Where t1.titulo = '" + titulo + "'" );
@@ -399,7 +400,7 @@ public class DAOLibroImpl implements DAOLibro {
 				+ "' autor_id = '" + libro.getAutor().getIdAutor()
 				+ "' isbn = '" + libro.getIsbn()
 				+ "' editorial_id = " + libro.getEditorial().getIdEditorial()
-				+ " a�o = " + libro.getAnio()
+				+ " anio = " + libro.getAnio()
 				+ " pais_id = " + libro.getPais().getIdPais()
 				+ " estante_id = " + libro.getEstante().getIdEstante()
 				+ " sala_id = " + libro.getSala().getIdSala()
@@ -423,7 +424,7 @@ public class DAOLibroImpl implements DAOLibro {
 		String update = null;
 		
 		rs = (ResultSet) ds.ejecutarConsulta("Select t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
-		"t1.isbn, t3.nombre, t1.a�o, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
 		"libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
 		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " + 
 		"status t6 on status_id = id_status Where ( t2.nombre = '" + nombre + "' ) or ( t2.apellidos = '" + apellido + "') or " + 
@@ -451,7 +452,7 @@ public class DAOLibroImpl implements DAOLibro {
 				+ "' autor_id = '" + libro.getAutor().getIdAutor()
 				+ "' isbn = '" + libro.getIsbn()
 				+ "' editorial_id = " + libro.getEditorial().getIdEditorial()
-				+ " a�o = " + libro.getAnio()
+				+ " anio = " + libro.getAnio()
 				+ " pais_id = " + libro.getPais().getIdPais()
 				+ " estante_id = " + libro.getEstante().getIdEstante()
 				+ " sala_id = " + libro.getSala().getIdSala()
@@ -511,6 +512,106 @@ public class DAOLibroImpl implements DAOLibro {
 		valor = this.ds.ejecutarActualizacion(delete);
 		
 		return valor;
+		
+	}
+        
+        public Object[] librosToArray() {
+
+        Object[] array = null;
+
+        ResultSet rs;
+        Statement st = null;
+        ds.iniciarConexion();
+        String sentencia;
+
+        sentencia = "SELECT titulo FROM libro ORDER BY titulo ASC";
+
+        rs = (ResultSet) ds.ejecutarConsulta(sentencia);
+
+        try {
+
+            while (rs.next()) {
+
+                libros.add( new Libro(rs.getString(1) ) );
+
+            }
+
+            array = new Object[libros.size()];
+
+            for (int i = 0; i < libros.size(); i++) {
+
+                array[i] = libros.get(i).getTitulo();
+                System.out.println(array[i]);
+
+            }
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        
+        ds.cerrarConexion();
+        
+        return array;
+
+    }
+    
+    public Integer getLibroID( String titulo ) {
+		
+        Integer id = 0;
+
+        ResultSet rs = (ResultSet) ds.ejecutarConsulta("SELECT id_libro FROM libro WHERE titulo = '" + titulo + "'");
+
+        try {
+
+            while (rs.next()) {
+
+                id = rs.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+
+            e.getMessage();
+            e.printStackTrace();
+
+        }
+
+        return id;
+		
+	}
+    
+    	public ArrayList<Libro> buscarLibroTitulo(String titulo) {
+		
+		this.ds.iniciarConexion();
+		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_libro, t1.folio, t1.titulo, t2.nombre, t2.apellidos, " +
+		"t1.isbn, t3.nombre, t1.anio, t4.nombre, t5.estante, t5.nivel, t1.sala_id, t1.descripcion, t6.descripcion From " + 
+		"libro t1 inner join autor t2 on autor_id = id_autor inner join editorial t3 on editorial_id = id_editorial " +
+		"inner join pais t4 on pais_id = id_pais inner join estante t5 on estante_id = id_estante inner join " + 
+		"status t6 on status_id = id_status Where t1.titulo = '" + titulo + "'" );
+		
+		Libro nuevoLibro = new Libro();
+                ArrayList<Libro> libros = new ArrayList<>();
+		
+		try {
+			
+			while( rs.next() ) {
+                                
+                                libros.add( new Libro( rs.getInt(1), rs.getString(2), rs.getString(3), new Autor(rs.getString(4), 
+                                        rs.getString(5)), rs.getString(6), new Editorial(rs.getString(7)), rs.getInt(8), 
+                                        new Pais(rs.getString(9)), new Estante(rs.getInt(10), rs.getString(11)), new Sala(rs.getString(12)), 
+                                        rs.getString(13), new Status(rs.getString(14) ) ) );
+				
+			}
+			
+		} catch ( SQLException e ) {
+			
+			e.getMessage();
+			e.printStackTrace();
+			
+		}
+		
+		return libros;
 		
 	}
 	

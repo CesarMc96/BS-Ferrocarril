@@ -31,7 +31,7 @@ public class DataSourcePostgreSQL implements DataSource {
         connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BS-Ferrocarril", "postgres", "toor");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/BS-Ferrocarril", "postgres", "postgres");
             this.st = this.connection.createStatement();
         } catch (ClassNotFoundException ex) {
         } catch (SQLException ex) {
@@ -102,10 +102,10 @@ public class DataSourcePostgreSQL implements DataSource {
             
             if ("Libro".equals(tipo)){
                 while ( rs.next() ) {
-                    arreglo.add( new Libro( rs.getInt(1), rs.getString(2), rs.getString(3), 
-                            new Autor( rs.getString(4), rs.getString(5) ), rs.getString(6), new Editorial( rs.getString(7) ),
-                            rs.getInt(8), new Pais( rs.getString(9) ), new Estante( rs.getInt(10), rs.getString(11) ),  
-                            new Sala( rs.getInt(12) ), rs.getString(13), new Status( rs.getString(14) ) ) );
+                    arreglo.add( new Libro( rs.getString(1), rs.getString(2), new Autor(rs.getString(3), 
+                                        rs.getString(4)), rs.getString(5), new Editorial(rs.getString(6)), rs.getInt(7), 
+                                        new Pais(rs.getString(8)), new Estante(rs.getInt(9), rs.getString(10)), new Sala(rs.getString(11)), 
+                                        rs.getString(12), new Status(rs.getString(13) ) ) );
                 }
             }
 
@@ -119,7 +119,7 @@ public class DataSourcePostgreSQL implements DataSource {
 
             if ("Editorial".equals(tipo)) {
                 while (rs.next()) {
-                    arreglo.add(new Editorial(rs.getString(1)));
+                    arreglo.add(new Editorial(rs.getString(2)));
                 }
             }
 

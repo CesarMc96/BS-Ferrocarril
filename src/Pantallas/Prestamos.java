@@ -1,25 +1,27 @@
 
 package Pantallas;
 
-import BD.ControladorLibro;
 import BD.ControladorPrestamo;
 import BD.DataSourcePostgreSQL;
-import BD.ModeloLibros;
 import BD.ModeloPrestamos;
+import DAO.Controlador;
 import Modelo.Prestamo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class Prestamos extends JFrame {
     
@@ -43,6 +45,14 @@ public class Prestamos extends JFrame {
     private JLabel lblUsuarioTitulo;
     private JPanel pnlBotones1;
     private JPanel pnlBotones2;
+    
+    private Controlador controller;
+    private DefaultTableModel model;
+    private JTable tabla;
+    private JScrollPane scroll;
+    
+    Object[][] matriz;
+    String[] cabeceras;
 
     public Prestamos() {
         
@@ -53,8 +63,18 @@ public class Prestamos extends JFrame {
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
         
-        DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        prestamos = das.crearArreglo("Select * From prestamo", "Prestamo");
+        cabeceras = new String[] {"Fecha Prestamo", "Fecha Devolucion", "No. Renovacion", "Titulo", "Autor", "Editorial", 
+            "Usuario", "No. Credencial", "Observaciones", "Accion" };
+        
+        controller = new Controlador();
+        
+        matriz = controller.toMatrizPrestamos();
+        
+        model = new DefaultTableModel(matriz, cabeceras);
+        
+        tabla = new JTable(model);
+        
+        scroll = new JScrollPane(tabla);
 
         controlador = new ControladorPrestamo(prestamos);
         modelo = new ModeloPrestamos(controlador.getDb());
@@ -92,7 +112,7 @@ public class Prestamos extends JFrame {
         pnlboton.add(txtBuscar);
         pnlboton.add(btnBuscar);
 
-        JScrollPane scrool = new JScrollPane(tblUsuario);
+        JScrollPane scrool = new JScrollPane(scroll);
         scrool.getViewport().setBackground(Color.white);
 
         super.add(new JScrollPane(scrool));
@@ -101,19 +121,60 @@ public class Prestamos extends JFrame {
 
         //Acciones
         btnEliminar.addActionListener((ActionEvent ae) -> {
-            int rowSelected = tblUsuario.getSelectedRow();
-
+            int rowSelected = tabla.getSelectedRow();
+            Prestamo prestamo;
+            String numUsuario;
+            
             if (rowSelected >= 0) {
-                System.out.println(controlador.buscar(rowSelected).getIdPrestamo());
-                controlador.eliminar(controlador.buscar(rowSelected).getIdPrestamo(), rowSelected);
-                controlador.guardar();
-                modelo.fireTableDataChanged();
+                
+                numUsuario = (String) tabla.getValueAt(rowSelected, 7);
+                prestamo = controller.buscarPrestamoUsuario(numUsuario);
+                
+                if ( controller.eliminarPrestamoNumUsuario(numUsuario) == 1 ) {
+                    JOptionPane.showMessageDialog(null, "¡El Prestamo se ha Borrado!. \n ", 
+                           "Prestamo Eliminado Exitosamente.", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    Prestamos.this.setVisible(false);
+                    new Prestamos();
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "¡El Prestamo No Ha Sido Borrado. \n ", 
+                           "Prestamo No Eliminado.", JOptionPane.ERROR_MESSAGE);
+                }
+                
             }
         });
 
         btnAceptar.addActionListener((ActionEvent e) -> {
             this.setVisible(false);
             new Seleccion();
+        });
+        
+        txtBuscar.setText("Num. Credencial");
+        txtBuscar.setForeground(Color.LIGHT_GRAY);
+        txtBuscar.addMouseListener( new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               
+                txtBuscar.setText(null);
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
         });
 
         udn = new UsuariosDialog(this);
@@ -122,7 +183,7 @@ public class Prestamos extends JFrame {
 
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
-            
+            new PrestamoDialog(Prestamos.this, "Nuevo Prestamo");
      
         });
 
@@ -143,17 +204,15 @@ public class Prestamos extends JFrame {
         });
 
         btnBuscar.addActionListener((ActionEvent e) -> {
-            Consulta = "Select * from usuario where nombre ilike '%" + txtBuscar.getText() + "%' or ap_paterno ilike '%" + txtBuscar.getText()
-                    + "%' or ap_materno ilike '%" + txtBuscar.getText() + "%' or num_credencial ilike '%" + txtBuscar.getText() + "%' or correo ilike '%" + txtBuscar.getText() + "%'";
-
+            prestamos = controller.buscarPrestamoNumUsuario( txtBuscar.getText() );
+            System.out.println(prestamos);
             this.setVisible(false);
-            Usuarios us = new Usuarios(Consulta);
-            us.setVisible(true);
+            Prestamos pre = new Prestamos(prestamos);
+            pre.setVisible(true);
         });
     }
 
-    public Prestamos(String consulta) {
-        Consulta = consulta;
+    public Prestamos( ArrayList<Prestamo> prestamos ) {
 
         super.setSize(800, 600);
         super.setDefaultCloseOperation(0);
@@ -162,12 +221,18 @@ public class Prestamos extends JFrame {
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
 
-        DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        prestamos = das.crearArreglo(Consulta, "Prestamo");
-
-        controlador = new ControladorPrestamo(prestamos);
-        modelo = new ModeloPrestamos(controlador.getDb());
-        tblUsuario = new JTable(modelo);
+        cabeceras = new String[] {"Fecha Prestamo", "Fecha Devolucion", "No. Renovacion", "Titulo", "Autor", "Editorial", 
+            "Usuario", "No. Credencial", "Observaciones", "Accion" };
+        
+        controller = new Controlador();
+        
+        matriz = controller.toMatrizPrestamos( prestamos );
+        
+        model = new DefaultTableModel(matriz, cabeceras);
+        
+        tabla = new JTable(model);
+        
+        scroll = new JScrollPane(tabla);
 
         lblUsuarioTitulo = new JLabel();
         lblUsuarioTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
@@ -201,7 +266,7 @@ public class Prestamos extends JFrame {
         pnlboton.add(txtBuscar);
         pnlboton.add(btnBuscar);
 
-        JScrollPane scrool = new JScrollPane(tblUsuario);
+        JScrollPane scrool = new JScrollPane(tabla);
         scrool.getViewport().setBackground(Color.white);
 
         super.add(new JScrollPane(scrool));

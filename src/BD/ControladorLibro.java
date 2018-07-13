@@ -9,6 +9,7 @@ public class ControladorLibro {
 
     public ControladorLibro(ArrayList<Libro> cargarLibros) {
         db = cargarLibros;
+        System.err.println(db);
     }
 
     public void agregar(Libro p) {

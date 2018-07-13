@@ -1,10 +1,12 @@
 package Pantallas;
 
 import BD.DataSourcePostgreSQL;
+import DAO.Controlador;
 import Modelo.*;
 import java.awt.Color;
 import java.awt.Frame;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -17,15 +19,69 @@ public class LibroDialog extends JDialog {
     private ArrayList<Pais> array;
     private ArrayList<Compañia> array1;
     private ArrayList<Editorial> array2;
+    private Controlador controlador;
 
-    public LibroDialog(Frame f) {
-        super(f, true);
+    Object[] autores, paises, editoriales;
+    
+    public LibroDialog(Frame f, String titulo) {
+        super(f, titulo, true);
         super.setLocationRelativeTo(null);
         super.setTitle("BS - Ferrocarril");
         da = f;
-
         initComponents();
+        
+        
+        controlador = new Controlador();
+        autores = controlador.auotoresToArray();
+        paises = controlador.paisesToArray();
+        editoriales = controlador.editorialesToArray();
+        
+        ListaAutor = new JComboBox<>(autores);
+        ListaEditorial = new JComboBox<>(editoriales);
+        ListaPais = new JComboBox<>(paises);
+        
+
         this.setLocationRelativeTo(null);
+        
+        super.setVisible(true);
+        
+    }
+    
+    public LibroDialog( Frame f, String titulo, Libro libro ) {
+        
+        super(f, titulo, true);
+        super.setLocationRelativeTo(null);
+        super.setTitle("BS - Ferrocarril");
+        da = f;
+        
+        
+        initComponents();
+        
+        controlador = new Controlador();
+        autores = controlador.auotoresToArray();
+        paises = controlador.paisesToArray();
+        editoriales = controlador.editorialesToArray();
+        
+        ListaAutor = new JComboBox<>(autores);
+        ListaEditorial = new JComboBox<>(editoriales);
+        ListaPais = new JComboBox<>(paises);
+
+        
+        txtTitulo.setText(libro.getTitulo());
+        txtAnio.setText( libro.getAnio().toString() );
+        txtFolio.setText( libro.getFolio() );
+        txtIsbn.setText( libro.getIsbn() );
+        ListaAutor.setSelectedItem( libro.getAutor() );
+        ListaEditorial.setSelectedItem( libro.getEditorial() );
+        ListaPais.setSelectedItem( libro.getPais() );
+        
+        
+        this.setLocationRelativeTo(null);
+        
+        
+        
+        super.setVisible(true);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -39,8 +95,7 @@ public class LibroDialog extends JDialog {
         lblEditorial = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         ListaCopias = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        txtAutor = new javax.swing.JTextField();
+        txtFolio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -49,7 +104,7 @@ public class LibroDialog extends JDialog {
         ListaPais = new javax.swing.JComboBox<>();
         ListaAutor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txtFormato = new javax.swing.JTextField();
+        txtIsbn = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,7 +129,7 @@ public class LibroDialog extends JDialog {
 
         txtTitulo.setText("   ");
         jPanel1.add(txtTitulo);
-        txtTitulo.setBounds(70, 90, 170, 22);
+        txtTitulo.setBounds(70, 90, 170, 20);
 
         lblEditorial.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         lblEditorial.setText("Editorial:");
@@ -84,21 +139,21 @@ public class LibroDialog extends JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel4.setText("Copias:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(250, 300, 90, 19);
+        jLabel4.setBounds(250, 270, 90, 19);
 
         ListaCopias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "15", "16", "17", "18", "19", "20" }));
         ListaCopias.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(ListaCopias);
-        ListaCopias.setBounds(310, 300, 50, 22);
+        ListaCopias.setBounds(310, 270, 50, 20);
         ListaCopias.setBackground(Color.white);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel6.setText("Folio:");
-        jLabel6.setToolTipText("");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(260, 260, 50, 19);
-        jPanel1.add(txtAutor);
-        txtAutor.setBounds(310, 180, 150, 22);
+        txtFolio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFolioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtFolio);
+        txtFolio.setBounds(310, 180, 150, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel7.setText("Folio:");
@@ -112,7 +167,7 @@ public class LibroDialog extends JDialog {
             }
         });
         jPanel1.add(btnGuardar);
-        btnGuardar.setBounds(290, 350, 80, 25);
+        btnGuardar.setBounds(290, 350, 80, 23);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,27 +176,27 @@ public class LibroDialog extends JDialog {
             }
         });
         jPanel1.add(btnCancelar);
-        btnCancelar.setBounds(380, 350, 90, 25);
+        btnCancelar.setBounds(380, 350, 90, 23);
         jPanel1.add(txtAnio);
-        txtAnio.setBounds(390, 130, 60, 22);
+        txtAnio.setBounds(390, 130, 60, 20);
 
         jPanel1.add(ListaEditorial);
-        ListaEditorial.setBounds(350, 90, 100, 22);
+        ListaEditorial.setBounds(350, 90, 100, 20);
 
         jPanel1.add(ListaPais);
-        ListaPais.setBounds(70, 130, 100, 22);
+        ListaPais.setBounds(70, 130, 100, 20);
 
         jPanel1.add(ListaAutor);
-        ListaAutor.setBounds(250, 130, 120, 22);
+        ListaAutor.setBounds(250, 130, 120, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel5.setText("Pais:");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(20, 130, 40, 19);
 
-        txtFormato.setText(" ");
-        jPanel1.add(txtFormato);
-        txtFormato.setBounds(310, 220, 150, 22);
+        txtIsbn.setText(" ");
+        jPanel1.add(txtIsbn);
+        txtIsbn.setBounds(310, 220, 150, 20);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel8.setText("Autor:");
@@ -185,14 +240,14 @@ public class LibroDialog extends JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //1 para nuevo 2 para modificar
 
-        if (txtTitulo.getText().equals("") || txtFormato.getText().equals("")) {
+        if (txtTitulo.getText().equals("") || txtIsbn.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo Titulo y Formato no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
             if (opcion == 1) {
                 DataSourcePostgreSQL d = new DataSourcePostgreSQL();
 
-                String consulta = "INSERT INTO multimedia(titulo, autor, anio, pais_id, compania_id, editorial_id, formato, copias) VALUES ( " + "'" + txtTitulo.getText() + "', '" + txtAutor.getText() + "', '" + txtAnio.getText() + "', '" + (ListaPais.getSelectedIndex() + 1) + "', '"
-                        + (ListaAutor.getSelectedIndex() + 1) + "', '" + (ListaEditorial.getSelectedIndex() + 1) + "', '" + txtFormato.getText() + "', '" + (ListaCopias.getSelectedIndex() + 1) + "')";
+                String consulta = "INSERT INTO multimedia(titulo, autor, anio, pais_id, compania_id, editorial_id, formato, copias) VALUES ( " + "'" + txtTitulo.getText() + "', '" + txtFolio.getText() + "', '" + txtAnio.getText() + "', '" + (ListaPais.getSelectedIndex() + 1) + "', '"
+                        + (ListaAutor.getSelectedIndex() + 1) + "', '" + (ListaEditorial.getSelectedIndex() + 1) + "', '" + txtIsbn.getText() + "', '" + (ListaCopias.getSelectedIndex() + 1) + "')";
 
                 d.ejecutarActualizacion(consulta);
 
@@ -205,9 +260,9 @@ public class LibroDialog extends JDialog {
             } else if (opcion == 2) {
                 DataSourcePostgreSQL d = new DataSourcePostgreSQL();
 
-                String consulta = "UPDATE multimedia SET titulo= '" + txtTitulo.getText() + "', autor='" + txtAutor.getText() + "', anio='" + txtAnio.getText()
+                String consulta = "UPDATE multimedia SET titulo= '" + txtTitulo.getText() + "', autor='" + txtFolio.getText() + "', anio='" + txtAnio.getText()
                         + "', pais_id='" + (ListaPais.getSelectedIndex() + 1) + "', compania_id='" + (ListaAutor.getSelectedIndex() + 1) + "', editorial_id='" + (ListaEditorial.getSelectedIndex() + 1)
-                        + "', formato='" + txtFormato.getText() + "', copias='" + (ListaCopias.getSelectedIndex() + 1) + "' WHERE id_multimedia = " + indice;
+                        + "', formato='" + txtIsbn.getText() + "', copias='" + (ListaCopias.getSelectedIndex() + 1) + "' WHERE id_multimedia = " + indice;
 
                 d.ejecutarActualizacion(consulta);
 
@@ -218,6 +273,10 @@ public class LibroDialog extends JDialog {
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtFolioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFolioActionPerformed
 
     public void setVariable(int v) {
         opcion = v;
@@ -232,7 +291,7 @@ public class LibroDialog extends JDialog {
     }
 
     public void setTxtAutor(String autor) {
-        txtAutor.setText(autor);
+        txtFolio.setText(autor);
     }
 
     public void setTxtTitulo(String titulo) {
@@ -240,7 +299,7 @@ public class LibroDialog extends JDialog {
     }
 
     public void setTxtFormato(String formato) {
-        txtFormato.setText(formato);
+        txtIsbn.setText(formato);
     }
 
     public void llenarArrayPaises(ArrayList arreglo, Integer hh) {
@@ -275,10 +334,10 @@ public class LibroDialog extends JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ListaAutor;
+    private javax.swing.JComboBox<Object> ListaAutor;
     private javax.swing.JComboBox<String> ListaCopias;
-    private javax.swing.JComboBox<String> ListaEditorial;
-    private javax.swing.JComboBox<String> ListaPais;
+    private javax.swing.JComboBox<Object> ListaEditorial;
+    private javax.swing.JComboBox<Object> ListaPais;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
@@ -286,15 +345,14 @@ public class LibroDialog extends JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblEditorial;
     private javax.swing.JTextField txtAnio;
-    private javax.swing.JTextField txtAutor;
-    private javax.swing.JTextField txtFormato;
+    private javax.swing.JTextField txtFolio;
+    private javax.swing.JTextField txtIsbn;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

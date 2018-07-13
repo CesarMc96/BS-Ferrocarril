@@ -21,7 +21,7 @@ public class ModeloEditorial extends  AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 1;
     }
 
     @Override

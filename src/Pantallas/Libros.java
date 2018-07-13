@@ -3,6 +3,7 @@ package Pantallas;
 import BD.ControladorLibro;
 import BD.DataSourcePostgreSQL;
 import BD.ModeloLibros;
+import DAO.Controlador;
 import Modelo.Libro;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,14 +19,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class Libros extends JFrame {
     
-    private JTable tblUsuario;
+    private JTable tblLibros;
     private ModeloLibros modelo;
     private ArrayList<Libro> libros;
 
     private ControladorLibro controlador;
+    private Controlador controller;
     private Integer variable;
 
     private final JButton btnNuevo;
@@ -41,6 +44,13 @@ public class Libros extends JFrame {
     private JLabel lblUsuarioTitulo;
     private JPanel pnlBotones1;
     private JPanel pnlBotones2;
+    
+    private JTable tabla;
+    private DefaultTableModel model;
+    private JScrollPane scroll;
+    
+    Object[][] matriz;
+    String[] cabeceras;
 
     public Libros() {
         super.setSize(800, 800);
@@ -52,11 +62,23 @@ public class Libros extends JFrame {
         setIconImage( new ImageIcon(getClass().getResource("/Imagenes/LOGOBS-01.jpg")).getImage());
 
         DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        libros = das.crearArreglo("Select folio, titulo, autor_id, isbn, editorial_id, anio, pais_id, estante_id, sala_id, descripcion, status_id From libro", "Libro");
+        libros = das.crearArreglo("Select * From libro", "Libro");
+        
+        cabeceras = new String[] {"Folio", "Titulo", "Autor", "ISBN", "Editorial", "Año", "Pais", "Estante", "Sala", "Descripcion", "Status"};
 
+        controller = new Controlador();
+        
+        matriz = controller.toMatrizLibros();
+        
+        model = new DefaultTableModel(matriz, cabeceras);
+        
+        tabla = new JTable(model);
+        
+        scroll = new JScrollPane(tabla);
+        
         controlador = new ControladorLibro(libros);
         modelo = new ModeloLibros(controlador.getDb());
-        tblUsuario = new JTable(modelo);
+        tblLibros = new JTable(modelo);
 
         lblUsuarioTitulo = new JLabel();
         lblUsuarioTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
@@ -90,7 +112,7 @@ public class Libros extends JFrame {
         pnlboton.add(txtBuscar);
         pnlboton.add(btnBuscar);
 
-        JScrollPane scrool = new JScrollPane(tblUsuario);
+        JScrollPane scrool = new JScrollPane(tabla);
         scrool.getViewport().setBackground(Color.white);
 
         super.add(new JScrollPane(scrool));
@@ -99,13 +121,34 @@ public class Libros extends JFrame {
 
         //Acciones
         btnEliminar.addActionListener((ActionEvent ae) -> {
-            int rowSelected = tblUsuario.getSelectedRow();
+            int rowSelected = tabla.getSelectedRow(), id = 0;
+            Libro libro;
+            String folio;
 
             if (rowSelected >= 0) {
-                System.out.println(controlador.buscar(rowSelected).getIdLibro());
-                controlador.eliminar(controlador.buscar(rowSelected).getIdLibro(), rowSelected);
-                controlador.guardar();
-                modelo.fireTableDataChanged();
+               // System.out.println(controlador.buscar(rowSelected).getIdLibro());
+               // controlador.eliminar(controlador.buscar(rowSelected).getIdLibro(), rowSelected);
+                //controlador.guardar();
+               // modelo.fireTableDataChanged();
+               folio = (String) tabla.getValueAt(rowSelected, 0);
+                System.out.println("Folio : " + folio);
+                
+               libro = controller.buscarLibro(folio);
+               id = libro.getIdLibro();
+               
+               if ( controller.eliminarLibro(folio ) == 1 ) {
+                   
+                   JOptionPane.showMessageDialog(null, "¡El Libro Ha Sido Borrado Exitosamente!. \n ", 
+                           "Libro Eliminado.", JOptionPane.INFORMATION_MESSAGE);
+                   
+                   Libros.this.setVisible(false);
+                   new Libros();
+                   
+               } else {
+                   JOptionPane.showMessageDialog(null, "¡El Libro No Ha Sido Borrado. \n ", 
+                           "Libro No Eliminado.", JOptionPane.ERROR_MESSAGE);
+               }
+                
             }
         });
 
@@ -120,37 +163,46 @@ public class Libros extends JFrame {
 
         btnNuevo.addActionListener((ActionEvent e) -> {
             variable = 1;
-            new LibrosDialog(this, "Agregar Libro");
+            new LibroDialog(Libros.this, "Agregar Libro");
+            System.out.println("Funciona?");
         });
 
         btnModificar.addActionListener((ActionEvent e) -> {
             variable = 2;
 
-            int rowSelected = tblUsuario.getSelectedRow();
+            int rowSelected = tabla.getSelectedRow();
+            String folio;
+            Libro libro;
 
             if (rowSelected < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione el libro a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
             } else {
-                udn.setVariable(variable);
-                System.out.println(controlador.buscar(rowSelected).getIdLibro() + " Hola");
-                udn.setModificar(controlador.buscar(rowSelected).getIdLibro());
+                //udn.setVariable(variable);
+                //System.out.println(controlador.buscar(rowSelected).getIdLibro() + " Hola");
+                //udn.setModificar(controlador.buscar(rowSelected).getIdLibro());
 
-                udn.setVisible(true);
+               // udn.setVisible(true);
+                folio = (String) tabla.getValueAt(rowSelected, 0);
+                System.out.println("Folio : " + folio);
+                
+               libro = controller.buscarLibro(folio);
+               
+               new LibroDialog(Libros.this, "Modificar Libro", libro);
+               
             }
         });
 
         btnBuscar.addActionListener((ActionEvent e) -> {
-            Consulta = "Select * from usuario where nombre ilike '%" + txtBuscar.getText() + "%' or ap_paterno ilike '%" + txtBuscar.getText()
-                    + "%' or ap_materno ilike '%" + txtBuscar.getText() + "%' or num_credencial ilike '%" + txtBuscar.getText() + "%' or correo ilike '%" + txtBuscar.getText() + "%'";
-
+            libros = controller.buscarLibros(txtBuscar.getText());
+            System.out.println("Encontrados : " + libros);
+            
             this.setVisible(false);
-            Usuarios us = new Usuarios(Consulta);
-            us.setVisible(true);
+            Libros books = new Libros(libros);
+            books.setVisible(true);
         });
     }
 
-    public Libros(String consulta) {
-        Consulta = consulta;
+    public Libros(ArrayList<Libro> libros) {
 
         super.setSize(800, 600);
         super.setDefaultCloseOperation(0);
@@ -159,13 +211,18 @@ public class Libros extends JFrame {
         super.setLayout(new BorderLayout());
         super.getContentPane().setBackground(Color.WHITE);
 
-        DataSourcePostgreSQL das = new DataSourcePostgreSQL();
-        libros = das.crearArreglo(Consulta, "Libro");
+        cabeceras = new String[] {"Folio", "Titulo", "Autor", "ISBN", "Editorial", "Año", "Pais", "Estante", "Sala", "Descripcion", "Status"};
 
-        controlador = new ControladorLibro(libros);
-        modelo = new ModeloLibros(controlador.getDb());
-        tblUsuario = new JTable(modelo);
-
+        controller = new Controlador();
+        
+        matriz = controller.toMatrizLibros(libros);
+        
+        model = new DefaultTableModel(matriz, cabeceras);
+        
+        tabla = new JTable(model);
+        
+        scroll = new JScrollPane(tabla);;
+        
         lblUsuarioTitulo = new JLabel();
         lblUsuarioTitulo.setFont(new java.awt.Font("Tahoma", 0, 34)); // NOI18N
         lblUsuarioTitulo.setText("LIBROS");
@@ -180,8 +237,11 @@ public class Libros extends JFrame {
         pnlBotones1.setBackground(Color.white);
         pnlBotones2.setBackground(Color.white);
         btnNuevo = new JButton("Nuevo");
+        btnNuevo.setEnabled(false);
         btnModificar = new JButton("Modificar");
+        btnModificar.setEnabled(false);
         btnEliminar = new JButton("Eliminar");
+        btnEliminar.setEnabled(false);
         pnlBotones1.add(lblUsuarioTitulo);
         pnlBotones2.add(btnNuevo);
         pnlBotones2.add(btnModificar);
@@ -190,6 +250,7 @@ public class Libros extends JFrame {
         pnlBotones.add(pnlBotones2, BorderLayout.CENTER);
         txtBuscar = new JTextField(10);
         btnBuscar = new JButton("Buscar");
+        btnBuscar.setEnabled(false);
 
         pnlboton = new JPanel();
         pnlboton.setBackground(Color.white);
@@ -198,7 +259,7 @@ public class Libros extends JFrame {
         pnlboton.add(txtBuscar);
         pnlboton.add(btnBuscar);
 
-        JScrollPane scrool = new JScrollPane(tblUsuario);
+        JScrollPane scrool = new JScrollPane(tabla);
         scrool.getViewport().setBackground(Color.white);
 
         super.add(new JScrollPane(scrool));
@@ -208,7 +269,7 @@ public class Libros extends JFrame {
         //super.setVisible(true);
         //Acciones
         btnEliminar.addActionListener((ActionEvent ae) -> {
-            int rowSelected = tblUsuario.getSelectedRow();
+            int rowSelected = tblLibros.getSelectedRow();
 
             if (rowSelected >= 0) {
                 System.out.println(controlador.buscar(rowSelected).getIdLibro());
@@ -244,7 +305,7 @@ public class Libros extends JFrame {
         btnModificar.addActionListener((ActionEvent e) -> {
             variable = 2;
 
-            int rowSelected = tblUsuario.getSelectedRow();
+            int rowSelected = tblLibros.getSelectedRow();
 
             if (rowSelected < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione el libro a modificar.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -256,9 +317,6 @@ public class Libros extends JFrame {
         });
 
         btnBuscar.addActionListener((ActionEvent e) -> {
-            Consulta = "Select * from usuario where nombre ilike '%" + txtBuscar.getText() + "%' or ap_paterno ilike '%" + txtBuscar.getText()
-                    + "%' or ap_materno ilike '%" + txtBuscar.getText() + "%' or num_credencial ilike '%" + txtBuscar.getText() + "%' or correo ilike '%" + txtBuscar.getText() + "%'";
-
             this.setVisible(false);
             Usuarios us = new Usuarios(Consulta);
             us.setVisible(true);

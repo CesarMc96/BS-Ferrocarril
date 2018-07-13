@@ -26,11 +26,11 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 		Statement st = null;
 		String sentencia;
 		
-		sentencia = "Select t1.id_prestamo, t1.fecha_prestamo, t1.fecha_devolucion, t1.num_renovacion, t2.nombre, t2.ap_paterno, " +
+		sentencia = "Select t1.fecha_prestamo, t1.fecha_devolucion, t1.num_renovacion, t2.nombre, t2.ap_paterno, " +
 		"t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, t5.nombre, t6.descripcion, t1.observaciones " +
 		"From prestamo t1 inner join usuario t2 on usuario_id = id_usuario inner join libro t3 on libro_id = id_libro " +
 		"inner join autor t4 on autor_id = id_autor inner join editorial t5 on editorial_id = id_editorial " + 
-		"inner join acciones t6 on accion_id = id_acciones";
+		"inner join acciones t6 on acciones_id = id_acciones";
 		
 		rs = (ResultSet) ds.ejecutarConsulta(sentencia);
 		
@@ -38,9 +38,9 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 			
 			while ( rs.next() ) {
 				
-				prestamos.add( new Prestamo(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getString(9), rs.getString(10) + 
-						" " + rs.getString(11), rs.getString(12), rs.getString(5) + " " + rs.getString(6) + " " + rs.getString(7), 
-						rs.getString(8), rs.getString(14), rs.getString(13) ) );
+				prestamos.add( new Prestamo( rs.getDate(1), rs.getDate(2), rs.getInt(3), rs.getString(8), rs.getString(9) + 
+						" " + rs.getString(10), rs.getString(11), rs.getString(4) + " " + rs.getString(5) + " " + rs.getString(6), 
+						rs.getString(7), rs.getString(13), rs.getString(12) ) );
 				
 			}
 			
@@ -68,7 +68,7 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 		" t1.num_renovacion, t2.nombre, t2.ap_paterno, t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, " +
 		"t5.nombre, t6.descripcion, t1.observaciones From prestamo t1 inner join usuario t2 on usuario_id = id_usuario " +
 		"inner join libro t3 on libro_id = id_libro inner join autor t4 on autor_id = id_autor inner join " +
-		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on accion_id = id_acciones WHERE " +
+		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on acciones_id = id_acciones WHERE " +
 		"t1.id_prestamo = "+ numeroPrestamo );
 		
 		Prestamo nuevoPrestamo = new Prestamo();
@@ -102,13 +102,13 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 	}
 
 	@Override
-	public Prestamo buscarPrestamoUsuario(Integer numUsuario) {
+	public Prestamo buscarPrestamoUsuario(String numUsuario) {
 
 		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.id_prestamo, t1.fecha_prestamo, t1.fecha_devolucion, " + 
 		" t1.num_renovacion, t2.nombre, t2.ap_paterno, t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, " +
 		"t5.nombre, t6.descripcion, t1.observaciones From prestamo t1 inner join usuario t2 on usuario_id = id_usuario " +
 		"inner join libro t3 on libro_id = id_libro inner join autor t4 on autor_id = id_autor inner join " +
-		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on accion_id = id_acciones WHERE " +
+		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on acciones_id = id_acciones WHERE " +
 		"t1.usuario_id = " + numUsuario );
 		
 		Prestamo nuevoPrestamo = new Prestamo();
@@ -148,7 +148,7 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 		" t1.num_renovacion, t2.nombre, t2.ap_paterno, t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, " +
 		"t5.nombre, t6.descripcion, t1.observaciones From prestamo t1 inner join usuario t2 on usuario_id = id_usuario " +
 		"inner join libro t3 on libro_id = id_libro inner join autor t4 on autor_id = id_autor inner join " +
-		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on accion_id = id_acciones WHERE " +
+		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on acciones_id = id_acciones WHERE " +
 		"t3.titulo = '"+ titulo + "'" );
 		
 		Prestamo nuevoPrestamo = new Prestamo();
@@ -188,7 +188,7 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 		" t1.num_renovacion, t2.nombre, t2.ap_paterno, t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, " +
 		"t5.nombre, t6.descripcion, t1.observaciones From prestamo t1 inner join usuario t2 on usuario_id = id_usuario " +
 		"inner join libro t3 on libro_id = id_libro inner join autor t4 on autor_id = id_autor inner join " +
-		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on accion_id = id_acciones WHERE " +
+		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on acciones_id = id_acciones WHERE " +
 		"t3.folio = '"+ folio + "'" );
 		
 		Prestamo nuevoPrestamo = new Prestamo();
@@ -228,7 +228,7 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 		" t1.num_renovacion, t2.nombre, t2.ap_paterno, t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, " +
 		"t5.nombre, t6.descripcion, t1.observaciones From prestamo t1 inner join usuario t2 on usuario_id = id_usuario " +
 		"inner join libro t3 on libro_id = id_libro inner join autor t4 on autor_id = id_autor inner join " +
-		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on accion_id = id_acciones WHERE " +
+		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on acciones_id = id_acciones WHERE " +
 		"t3.id_libro = "+ numLibro );
 		
 		Prestamo nuevoPrestamo = new Prestamo();
@@ -371,7 +371,52 @@ public class DAOPrestamoImpl implements DAOPrestamo {
 		
 	}
 	
+		public int eliminarPrestamoNumUsuario(String numUsuario) {
+
+		int valor = 0, id = 0;
+		ResultSet rs = null;
+		String delete = null;
+		
+		delete = "DELETE FROM prestamo WHERE usuario_id = ( SELECT id_usuario FROM usuario WHERE num_credencial " +
+                        "= '" + numUsuario + "');";
+		
+		valor = this.ds.ejecutarActualizacion(delete);
+		
+		return valor;
+		
+	}
 	
-	
+            
+        public ArrayList<Prestamo> buscarPrestamoNumUsuario(String numUsuario) {
+
+		ResultSet rs = (ResultSet) ds.ejecutarConsulta("Select t1.fecha_prestamo, t1.fecha_devolucion, " + 
+		" t1.num_renovacion, t2.nombre, t2.ap_paterno, t2.ap_materno, t2.num_credencial, t3.titulo, t4.nombre, t4.apellidos, " +
+		"t5.nombre, t6.descripcion, t1.observaciones From prestamo t1 inner join usuario t2 on usuario_id = id_usuario " +
+		"inner join libro t3 on libro_id = id_libro inner join autor t4 on autor_id = id_autor inner join " +
+		"editorial t5 on editorial_id = id_editorial inner join acciones t6 on acciones_id = id_acciones WHERE " +
+		"t2.num_credencial = '" + numUsuario + "'" );
+		
+		ArrayList<Prestamo> prestamos = new ArrayList<>();
+		
+		try {
+			
+			while( rs.next() ) {
+				
+                                prestamos.add( new Prestamo( rs.getDate(1), rs.getDate(2), rs.getInt(3), rs.getString(8), 
+                                rs.getString(9) + " " + rs.getString(10), rs.getString(11), rs.getString(4) + " " +
+                                rs.getString(5) + " " + rs.getString(6), rs.getString(7), rs.getString(13), rs.getString(12) ) );
+				
+			}
+			
+			
+		} catch ( SQLException e ) {
+			e.getMessage();
+			e.printStackTrace();
+			
+		}
+		
+		return prestamos;
+		
+	}
 
 }
